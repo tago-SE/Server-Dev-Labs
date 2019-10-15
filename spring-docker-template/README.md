@@ -46,6 +46,6 @@ check if the docker image was created
 
 Spawn a container running the created docker image
 
-    docker run -it -p 9999:8080 springio/spring-docker-template
-    
+    docker run -it -p 9090:8080 -t springio/spring-docker-template
+
 Append 'winpty' if the input device is not a TTY.
