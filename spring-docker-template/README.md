@@ -24,15 +24,17 @@ https://www.baeldung.com/maven-wrapper
     mvn -N io.takari:maven:wrapper
 
 After executing the goal, we'll have more files and directories in the project:
+
 <br/>mvnw: it's an executable Unix shell script used in place of a fully installed Maven
 <br/>mvnw.cmd: it's the Batch version of the above script
 <br/>mvn: the hidden folder that holds the Maven Wrapper Java library and its properties file
 
-# Run the following command to build and run, you can now access it using localhost:8080/users/all
+# Run the springboot application
 
      ./mvnw package && java -jar target/spring-docker-template-0.1.0.jar
-
-Note that the command is mvnw.cmd for windows
+     
+Note that the command is mvnw.cmd for window  
+After the application has started you can access it using localhost:8080/users/all for example
 
 # Install, build and push the docker file
      ./mvnw install dockerfile:build
