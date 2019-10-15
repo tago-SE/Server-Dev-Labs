@@ -1,14 +1,9 @@
 package controllers;
 
 import models.User;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import services.UserService;
-
 import java.util.List;
-
 
 @CrossOrigin
 @RestController
@@ -26,14 +21,49 @@ public class UserController {
         return "Users";
     }
 
+    @RequestMapping("/login/{username}/{password}")
+    public User loginUser(@PathVariable("username") String username, @PathVariable("password") String password) {
+        User u = new User();
+        u.setUsername(username);
+        u.setPassword(password);
+        u.setId("1337");
+        return u;
+    }
+
+    @RequestMapping("/register/{username}/{password}")
+    public User registerUser(@PathVariable("username") String username, @PathVariable("password") String password) {
+        User u = new User();
+        u.setUsername(username);
+        u.setPassword(password);
+        u.setId("1337");
+        return u;
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public User update(User user) {
+        user.setUsername("UPDATED");
+        return user;
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public User delete(User user) {
+        user.setUsername("DELETED");
+        return user;
+    }
+
+    @RequestMapping("/get/{id}")
+    public User getUserById(@PathVariable("id") String id) {
+        return userService.getUser(id);
+    }
+
+    @RequestMapping("/get/name/{username}")
+    public User getUserByName(@PathVariable("username") String name) {
+        return userService.getUser(name);
+    }
+
     @RequestMapping(value = "/all")
     public List<User> getAll() {
         return userService.getAll();
-    }
-
-    @RequestMapping("/id/{id}")
-    public User getUser(@PathVariable("id") String id) {
-        return userService.getUser(id);
     }
 
 }

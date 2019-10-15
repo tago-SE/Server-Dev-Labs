@@ -9,6 +9,16 @@ import java.util.List;
 @Service
 public class UserService {
 
+    private void hidePassword(User u) {
+        u.setPassword(" ");
+    }
+
+    private void hidePasswords(List<User> users) {
+        if (users != null)
+            for (User u : users)
+                hidePassword(u);
+    }
+
     public UserService() {
 
     }
