@@ -1,4 +1,5 @@
 #################################################################################
+#
 # How to dockerize a Spring boot application
 # https://spring.io/guides/gs/spring-boot-docker/ <--- USED THIS
 # https://www.baeldung.com/dockerizing-spring-boot-application
@@ -19,9 +20,6 @@
 
 # Setting Up the Maven Wrapper
 # https://www.baeldung.com/maven-wrapper
-
- $
-
 
 1) Open the main project folder and run the command(s)
 
