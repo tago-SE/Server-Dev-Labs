@@ -21,7 +21,7 @@
         <start-class>main.Application</start-class>
         <java.version>1.8</java.version>
 
-        <!-- docker -->
+        <!-- docker image prefix -->
         <docker.image.prefix>springio</docker.image.prefix>
     </properties>
 
@@ -59,7 +59,7 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.9</version>
                 <configuration>
-                    <!-- springio/spring-docker-template -->
+                    <!-- In this creates creates: springio/spring-docker-template -->
                     <repository>${docker.image.prefix}/${project.artifactId}</repository>
                 </configuration>
             </plugin>
@@ -88,7 +88,5 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>

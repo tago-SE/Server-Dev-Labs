@@ -19,17 +19,14 @@ Execute these commands to verify that everything is in order
     mvn --version
         
 # Setting Up the Maven Wrapper inside the project 
-
 https://www.baeldung.com/maven-wrapper
-
-Open the main project folder and run the command(s)
 
     mvn -N io.takari:maven:wrapper
 
 After executing the goal, we'll have more files and directories in the project:
-mvnw: it's an executable Unix shell script used in place of a fully installed Maven
-mvnw.cmd: it's the Batch version of the above script
-mvn: the hidden folder that holds the Maven Wrapper Java library and its properties file
+  mvnw: it's an executable Unix shell script used in place of a fully installed Maven
+  mvnw.cmd: it's the Batch version of the above script
+  mvn: the hidden folder that holds the Maven Wrapper Java library and its properties file
 
 # Run the following command to build and run, you can now access it using localhost:8080/users/all
 
