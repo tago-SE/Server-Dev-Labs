@@ -48,3 +48,4 @@ Spawn a container running the created docker image
 
     docker run -it -p 9999:8080 springio/spring-docker-template
     
+Append 'winpty' if the input device is not a TTY.
