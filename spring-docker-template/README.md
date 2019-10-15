@@ -38,4 +38,13 @@ After the application has started you can access it using localhost:8080/users/a
 
 # Install, build and push the docker file
      ./mvnw install dockerfile:build
-     ./mvnw dockerfile:push
+     ./mvnw dockerfile:push (optional)
+     
+check if the docker image was created
+
+    docker images
+
+Spawn a container running the created docker image
+
+    docker run -it -p 9999:8080 springio/spring-docker-template
+    
