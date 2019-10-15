@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @RequestMapping("/")
-    public String home() {
+    public String index() {
         return "Users";
     }
 
