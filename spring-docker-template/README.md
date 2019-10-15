@@ -1,4 +1,5 @@
 # How to dockerize a Spring boot application
+
 https://spring.io/guides/gs/spring-boot-docker/ <--- USED THIS
 https://www.baeldung.com/dockerizing-spring-boot-application
 Example project
@@ -19,7 +20,7 @@ https://www.baeldung.com/maven-wrapper
 
 Open the main project folder and run the command(s)
 
-    $ mvn -N io.takari:maven:wrappe
+    $ mvn -N io.takari:maven:wrapper
 
 After executing the goal, we'll have more files and directories in the project:
 mvnw: it's an executable Unix shell script used in place of a fully installed Maven
