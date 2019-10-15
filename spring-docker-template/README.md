@@ -49,3 +49,5 @@ Spawn a container running the created docker image
     docker run -it -p 9090:8080 -t springio/spring-docker-template
 
 Append 'winpty' if the input device is not a TTY.
+
+Important: On windows the URL to the server is 192.168.99.100:9090/users/all
