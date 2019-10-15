@@ -24,9 +24,9 @@ https://www.baeldung.com/maven-wrapper
     mvn -N io.takari:maven:wrapper
 
 After executing the goal, we'll have more files and directories in the project:
-  mvnw: it's an executable Unix shell script used in place of a fully installed Maven
-  mvnw.cmd: it's the Batch version of the above script
-  mvn: the hidden folder that holds the Maven Wrapper Java library and its properties file
+<br/>mvnw: it's an executable Unix shell script used in place of a fully installed Maven
+<br/>mvnw.cmd: it's the Batch version of the above script
+<br/>mvn: the hidden folder that holds the Maven Wrapper Java library and its properties file
 
 # Run the following command to build and run, you can now access it using localhost:8080/users/all
 
