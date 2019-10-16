@@ -22,7 +22,7 @@ public class UserService {
         User user = null;
         try {
             Query query = User.createValidateCredentialsQuery(em, username, password);
-            return (User) query.getSingleResult();
+            return hidePassword((User) query.getSingleResult());
         } catch (Exception e) {
             if (e instanceof NoResultException)
                 return null;
@@ -43,7 +43,7 @@ public class UserService {
                 user = new User(username, password);
                 em.persist(user);
                 em.getTransaction().commit();
-                return user;
+                return hidePassword(user);
             }
             em.getTransaction().rollback();
             return null;
@@ -67,7 +67,7 @@ public class UserService {
                     persistent.delete(em);
                     em.remove(persistent);
                     em.getTransaction().commit();
-                   return persistent;
+                   return hidePassword(persistent);
                 } catch (Exception e) {
                     em.getTransaction().rollback();
                     throw e;
@@ -111,7 +111,7 @@ public class UserService {
         EntityManagerFactory factory = HibernateUtil.getEntityManagerFactory();
         EntityManager em = factory.createEntityManager();
         try {
-            return  User.createGetAllQuery(em).getResultList();
+            return  hidePassword(User.createGetAllQuery(em).getResultList());
         } finally {
             em.close();
         }
@@ -122,7 +122,7 @@ public class UserService {
         EntityManager em = factory.createEntityManager();
         try {
             Query query = User.createFindUserByNameQuery(em, username);
-            return (User) query.getSingleResult();
+            return hidePassword((User) query.getSingleResult());
         } catch (Exception e) {
             if (e instanceof NoResultException)
                 return null;
@@ -137,10 +137,23 @@ public class UserService {
         EntityManagerFactory factory = HibernateUtil.getEntityManagerFactory();
         EntityManager em = factory.createEntityManager();
         try {
-            return em.find(User.class, id);
+            return hidePassword(em.find(User.class, id));
         } finally {
             em.close();
         }
+    }
+
+    private User hidePassword(User u) {
+        if (u != null)
+            u.setPassword(" ");
+        return u;
+    }
+
+    private List<User> hidePassword(List<User> users) {
+        if (users != null)
+            for (User u : users)
+                hidePassword(u);
+        return users;
     }
 
 

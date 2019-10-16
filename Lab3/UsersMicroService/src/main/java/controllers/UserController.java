@@ -23,11 +23,7 @@ public class UserController {
 
     @RequestMapping("/login/{username}/{password}")
     public User loginUser(@PathVariable("username") String username, @PathVariable("password") String password) {
-        User u = new User();
-        u.setUsername(username);
-        u.setPassword(password);
-        u.setId(1337);
-        return u;
+        return userService.login(username, password);
     }
 
     @RequestMapping("/register/{username}/{password}")
@@ -36,15 +32,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public User update(User user) {
-        user.setUsername("UPDATED");
-        return user;
+    public boolean update(User user) {
+       return userService.update(user);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public User delete(User user) {
-        user.setUsername("DELETED");
-        return user;
+        return userService.delete(user);
     }
 
     @RequestMapping("/get/{id}")
@@ -61,16 +55,4 @@ public class UserController {
     public List<User> getAll() {
         return userService.getAll();
     }
-    private User hidePassword(User u) {
-        u.setPassword(" ");
-        return u;
-    }
-
-    private List<User> hidePasswords(List<User> users) {
-        if (users != null)
-            for (User u : users)
-                hidePassword(u);
-        return users;
-    }
-
 }

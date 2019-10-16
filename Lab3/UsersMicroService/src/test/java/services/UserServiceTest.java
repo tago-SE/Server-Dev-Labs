@@ -83,7 +83,6 @@ public class UserServiceTest {
 
     @AfterClass
     public static void cleanup() {
-        System.out.println("Cleaning Up Test...");
         for (User u : createdUsers) {
             s.delete(u);
         }

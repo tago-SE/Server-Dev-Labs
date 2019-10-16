@@ -3,12 +3,11 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-
     <persistence-unit name="org.hibernate.lab3.jpa" transaction-type="RESOURCE_LOCAL">
 
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://192.168.99.100:32769/DB_LAB_3?useSSL=false"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://192.168.99.100:32771/DB_LAB_3"/>
             <property name="hibernate.connection.autocommit" value="false"/>
             <property name="hibernate.connection.username" value="remoteuser"/>
             <property name="hibernate.connection.password" value="remotepassword"/>
@@ -16,14 +15,8 @@
             <property name="hibernate.connection.CharSet" value="utf8"/>
             <property name="hibernate.connection.characterEncoding" value="utf8"/>
             <property name="hibernate.connection.useUnicode" value="true"/>
-
-            <property name="hibernate.show_sql" value="false"/>
-            <property name="hibernate.generate_statistics" value="false"/>
-            <property name="hibernate.use_sql_comments" value="false"/>
-
-
+            <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
-
             <!-- Scan for annotated classes and Hibernate mapping XML files -->
             <property name="hibernate.archive.autodetection" value="class, hbm"/>
 
@@ -44,3 +37,4 @@
         </properties>
     </persistence-unit>
 </persistence>
+
