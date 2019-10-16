@@ -5,16 +5,26 @@ import javax.persistence.*;
 @Entity
 @Table(name = "T_User")
 @NamedQueries({
-        @NamedQuery(name = "User.findAll", query = "SELECT u FROM  UserEntity u"),
-        @NamedQuery(name = "User.findByName", query = "SELECT u FROM  UserEntity u WHERE u.name = :name"),
-        @NamedQuery(name = "User.findByNameContains", query = "SELECT u FROM UserEntity u WHERE u.name LIKE :search"),
-        @NamedQuery(name = "User.validateCredentials", query = "SELECT u FROM  UserEntity u WHERE u.name = :name and u.password = :password")
+        @NamedQuery(name = "User.findAll", query = "SELECT u FROM  User u"),
+        @NamedQuery(name = "User.findByName", query = "SELECT u FROM  User u WHERE u.username = :name"),
+        @NamedQuery(name = "User.findByNameContains", query = "SELECT u FROM User u WHERE u.username LIKE :search"),
+        @NamedQuery(name = "User.validateCredentials", query = "SELECT u FROM  User u WHERE u.username = :name and u.password = :password")
 })
-public class User extends EntityInt {
+public class User implements EntityInt {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(name = "name", nullable = false, unique = true)
     private String username;
+
+    @Column(name = "pass", nullable = false)
     private String password;
+
+    @Version
+    private long version;
+
     private String email;
     private String country;
     private String occupation;
@@ -26,7 +36,7 @@ public class User extends EntityInt {
         setPassword(password);
     }
 
-    @Id
+    @Override
     public long getId() {
         return id;
     }
@@ -35,7 +45,15 @@ public class User extends EntityInt {
         this.id = id;
     }
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Override
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -44,7 +62,6 @@ public class User extends EntityInt {
         this.username = username;
     }
 
-    @Column(name = "pass", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -75,6 +92,22 @@ public class User extends EntityInt {
 
     public void setOccupation(String occupation) {
         this.occupation = occupation;
+    }
+
+    // Query factory methods
+
+    public static Query createFindUserByNameQuery(EntityManager em, String username) {
+        return em.createNamedQuery("User.findByName").setParameter("name", username);
+    }
+
+    public static Query createValidateCredentialsQuery(EntityManager em, String username, String password) {
+        return em.createNamedQuery("User.validateCredentials")
+                .setParameter("name", username)
+                .setParameter("password", password);
+    }
+
+    public static Query createGetAllQuery(EntityManager em) {
+        return em.createNamedQuery("User.findAll");
     }
 
     @Override

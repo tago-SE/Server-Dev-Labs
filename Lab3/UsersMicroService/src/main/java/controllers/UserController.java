@@ -61,5 +61,16 @@ public class UserController {
     public List<User> getAll() {
         return userService.getAll();
     }
+    private User hidePassword(User u) {
+        u.setPassword(" ");
+        return u;
+    }
+
+    private List<User> hidePasswords(List<User> users) {
+        if (users != null)
+            for (User u : users)
+                hidePassword(u);
+        return users;
+    }
 
 }

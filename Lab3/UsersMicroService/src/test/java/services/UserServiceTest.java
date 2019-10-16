@@ -1,6 +1,5 @@
 package services;
 
-import models.User;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
@@ -16,6 +15,6 @@ public class UserServiceTest {
         UserService s = new UserService();
         String name = "" + Math.random();
         assertNotNull(s.register(name, name));
-        assertNull(s.register(name, name));
+        assertNull(s.register(name, name));         // should not be able to register a user with same name
     }
 }
