@@ -10,4 +10,6 @@ public interface  EntityInt extends Serializable {
      */
     long getId();
     long getVersion();
+    void update(EntityManager em, EntityInt source);
+    void delete(EntityManager em);
 }

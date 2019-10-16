@@ -49,25 +49,62 @@ public class UserService {
             return null;
         } catch (Exception e) {
             em.getTransaction().rollback();
-            return null;
+            throw e;
         } finally {
             em.close();
         }
     }
 
-    /**
-     * You can pass in a dummy user model as long as it has a valid id, it will be deleted.
-     * @param source
-     * @return the deleted user
-     */
     public User delete(User source) {
+        EntityManagerFactory factory = HibernateUtil.getEntityManagerFactory();
+        EntityManager em = factory.createEntityManager();
+        User persistent = null;
+        try {
+            persistent = em.find(User.class, source.getId());
+            if (persistent != null) {
+                em.getTransaction().begin();
+                try {
+                    persistent.delete(em);
+                    em.remove(persistent);
+                    em.getTransaction().commit();
+                   return persistent;
+                } catch (Exception e) {
+                    em.getTransaction().rollback();
+                    throw e;
+                }
+            }
+            return null;
+        }
+        finally {
+            em.close();
+        }
+    }
 
-        return null;
+    public User delete(long id) {
+        return delete(new User(id));
     }
 
     public boolean update(User source) {
-
-        return true;
+        EntityManagerFactory factory = HibernateUtil.getEntityManagerFactory();
+        EntityManager em = factory.createEntityManager();
+        try {
+            User persistent = em.find(User.class, source.getId());
+            if (persistent != null) {
+                em.getTransaction().begin();
+                try {
+                    persistent.update(em, source);
+                    em.getTransaction().commit();
+                    return true;
+                } catch (Exception e) {
+                    em.getTransaction().rollback();
+                    throw e;
+                }
+            }
+        }
+        finally {
+            em.close();
+        }
+        return false;
     }
 
     public List<User> getAll() {

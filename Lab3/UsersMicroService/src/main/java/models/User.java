@@ -31,6 +31,10 @@ public class User implements EntityInt {
 
     public User() { }
 
+    public User(long id) {
+        this.id = id;
+    }
+
     public User(String username, String password) {
         setUsername(username);
         setPassword(password);
@@ -111,15 +115,29 @@ public class User implements EntityInt {
     }
 
     @Override
+    public void update(EntityManager em, EntityInt sourceUser) {
+        User source = (User) sourceUser;
+        country = source.country;
+        email = source.email;
+        occupation = source.occupation;
+        password = source.password;
+    }
+
+    @Override
+    public void delete(EntityManager em) {
+
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", version=" + version +
                 ", email='" + email + '\'' +
                 ", country='" + country + '\'' +
                 ", occupation='" + occupation + '\'' +
                 '}';
     }
-
 }
