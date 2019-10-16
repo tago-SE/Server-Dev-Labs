@@ -16,11 +16,10 @@
             <property name="hibernate.connection.characterEncoding" value="utf8"/>
             <property name="hibernate.connection.useUnicode" value="true"/>
 
-            <!--
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.generate_statistics" value="false"/>
             <property name="hibernate.use_sql_comments" value="false"/>
-            -->
+
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <!-- Scan for annotated classes and Hibernate mapping XML files -->
