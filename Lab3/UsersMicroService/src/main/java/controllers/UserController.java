@@ -26,17 +26,13 @@ public class UserController {
         User u = new User();
         u.setUsername(username);
         u.setPassword(password);
-        u.setId("1337");
+        u.setId(1337);
         return u;
     }
 
     @RequestMapping("/register/{username}/{password}")
     public User registerUser(@PathVariable("username") String username, @PathVariable("password") String password) {
-        User u = new User();
-        u.setUsername(username);
-        u.setPassword(password);
-        u.setId("1337");
-        return u;
+        return userService.register(username, password);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -52,13 +48,13 @@ public class UserController {
     }
 
     @RequestMapping("/get/{id}")
-    public User getUserById(@PathVariable("id") String id) {
-        return userService.getUser(id);
+    public User getUserById(@PathVariable("id") long id) {
+        return userService.getUserById(id);
     }
 
     @RequestMapping("/get/name/{username}")
     public User getUserByName(@PathVariable("username") String name) {
-        return userService.getUser(name);
+        return userService.getUserByName(name);
     }
 
     @RequestMapping(value = "/all")
