@@ -18,10 +18,10 @@ public class UserControllerTest {
 
     // To prevent blocking of the application due to invalid JUnit test configuration of host address
     // should be set to true unless explicitly you want unit tests to be ran from here
-    private static final boolean IGNORE_TESTS = true;
+    private static final boolean IGNORE_TESTS = false;
 
-    private static final String HOST    = "localhost";
-    private static final int PORT       = 8080;
+    private static final String HOST    = "192.168.99.100";
+    private static final int PORT       = 9091;
 
     private static final String URL = "http://" + HOST + ":" + PORT + "/users";
 
