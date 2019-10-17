@@ -1,13 +1,14 @@
 package controllers;
 
-import models.Dummy;
 import models.User;
+import models.UserList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.UserService;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -25,56 +26,41 @@ public class UserController {
         return "Users";
     }
 
-    //@RequestMapping("/login/{username}/{password}")
-    //public User loginUser(@PathVariable("username") String username, @PathVariable("password") String password) {
     @PostMapping("/login")
     public User loginUser(@Valid @RequestBody User user) {
         return userService.login(user.getUsername(), user.getPassword());
     }
-
-    //@RequestMapping("/register/{username}/{password}")
-    // public User registerUser(@PathVariable("username") String username, @PathVariable("password") String password) {
 
     @PostMapping("/register")
     public User registerUser(@Valid @RequestBody User user) {
         return userService.register(user.getUsername(), user.getPassword());
     }
 
-    @Deprecated
-    @PutMapping("/updateDummy/{id}")
-    public ResponseEntity<Dummy> updateDummy(@PathVariable(value = "id") Long id,  @Valid @RequestBody Dummy dummy) {
-        System.out.println("RECV: " + dummy);
-        dummy.setId(55);
-        dummy.setName("UPDATE_" + dummy.getName());
-        return ResponseEntity.ok(dummy);
-    }
-
-   @PutMapping("/update/{id}")
-   public ResponseEntity<User> updateUser(
-           @PathVariable(value = "id") Long id,
-           @Valid @RequestBody User user) {
+   @PutMapping("/update")
+   public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
        return ResponseEntity.ok(userService.update(user));
     }
 
-    @PutMapping("/delete/{id}")
-    public ResponseEntity<User> deleteUser(
-            @PathVariable(value = "id") Long id,
-            @Valid @RequestBody User user) {
-        return ResponseEntity.ok(userService.delete(user));
+    @PostMapping("/delete")
+    public Map<String, Boolean> deleteUser(@Valid @RequestBody User user) {
+        boolean result = userService.delete(user) != null;
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", result);
+        return response;
     }
 
-    @RequestMapping("/get/{id}")
-    public User getUserById(@PathVariable("id") long id) {
-        return userService.getUserById(id);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @RequestMapping("/get/name/{username}")
-    public User getUserByName(@PathVariable("username") String name) {
-        return userService.getUserByName(name);
+    @GetMapping("/get/name/{username}")
+    public ResponseEntity<User> getUserByName(@PathVariable("username") String name) {
+        return ResponseEntity.ok(userService.getUserByName(name));
     }
 
-    @RequestMapping(value = "/all")
-    public List<User> getAll() {
-        return userService.getAll();
+    @GetMapping(value = "/all")
+    public ResponseEntity<UserList> getAll() {
+        return ResponseEntity.ok(new UserList(userService.getAll()));
     }
 }

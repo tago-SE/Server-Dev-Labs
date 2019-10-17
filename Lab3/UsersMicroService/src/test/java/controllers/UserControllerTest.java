@@ -1,15 +1,8 @@
 package controllers;
 
-import models.Dummy;
 import models.User;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import services.UserService;
 
@@ -25,7 +18,7 @@ public class UserControllerTest {
 
     // To prevent blocking of the application due to invalid JUnit test configuration of host address
     // should be set to true unless explicitly you want unit tests to be ran from here
-    private static final boolean IGNORE_TESTS = false;
+    private static final boolean IGNORE_TESTS = true;
 
     private static final String HOST    = "localhost";
     private static final int PORT       = 8080;
@@ -50,8 +43,6 @@ public class UserControllerTest {
     public void loginUser() {
         if (IGNORE_TESTS)
             return;
-
-        System.out.println(client.LOGIN_END_POINT);
         String name = "" + Math.random();
         User u = s.register(name, name);
         createdUsers.add(u);
@@ -65,7 +56,6 @@ public class UserControllerTest {
     public void registerUser() {
         if (IGNORE_TESTS)
             return;
-        System.out.println(client.REGISTER_END_POINT);
         String name = "" + Math.random();
         User u = client.registerUser(new User(name, name));
         createdUsers.add(u);
@@ -76,36 +66,61 @@ public class UserControllerTest {
     public void update() {
         if (IGNORE_TESTS)
             return;
-
         String name = "" + Math.random();
         User u = client.registerUser(new User(name, name));
-        //createdUsers.add(u);
-        u.setEmail("tiago@kth.se");
+        createdUsers.add(u);
+        u.setEmail("julian@kth.se");
         client.updateUser(u);
+        User u2 = client.getUserById(u.getId());
+        assertEquals(u2.getId(), u.getId());
     }
 
     @Test
     public void delete() {
         if (IGNORE_TESTS)
             return;
+
+        String name = "" + Math.random();
+        User u = s.register(name, name);
+        client.deleteUser(u);
+        assertNull(client.getUserById(u.getId()));
     }
 
     @Test
     public void getUserById() {
         if (IGNORE_TESTS)
             return;
+        String name = "" + Math.random();
+        User u = client.registerUser(new User(name, name));
+        createdUsers.add(u);
+        User u2 = client.getUserById(u.getId());
+        assertEquals(u2.getId(), u.getId());
+        assertNull(client.getUserById(-5));
     }
 
     @Test
     public void getUserByName() {
         if (IGNORE_TESTS)
             return;
+        String name = "" + Math.random();
+        User u = s.register(name, name);
+        createdUsers.add(u);
+        User found = client.getUserByName(name);
+        assertEquals(u.getUsername(), found.getUsername());
     }
 
     @Test
     public void getAll() {
         if (IGNORE_TESTS)
             return;
+
+        int count = client.getAllUsers().size();
+        String name = "" + Math.random();
+        User u = client.registerUser(new User(name, name));
+        createdUsers.add(u);
+        List<User> users = client.getAllUsers();
+        assertEquals(count + 1, users.size());
+        assertNotNull(users.get(0));
     }
 
     @AfterClass

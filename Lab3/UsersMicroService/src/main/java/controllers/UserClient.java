@@ -1,27 +1,33 @@
 package controllers;
 
 import models.User;
+import models.UserList;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class UserClient {
 
-    public final String URL;
-    public final String LOGIN_END_POINT;
-    public final String REGISTER_END_POINT;
-    public final String UPDATE_END_POINT;
-    public final String DELETE_END_POINT;
-
-    // @TODO: Work in progress https://www.javaguides.net/2019/02/spring-resttemplate-spring-rest-client-get-post-put-delete-example.html
+    private final String URL;
+    private final String LOGIN_END_POINT;
+    private final String REGISTER_END_POINT;
+    private final String UPDATE_END_POINT;
+    private final String DELETE_END_POINT;
+    private final String GET_USER_BY_ID_END_POINT;
+    private final String GET_USER_BY_NAME_END_POINT;
+    private final String GET_ALL_USERS_END_POINT;
 
     public UserClient(String host, int port) {
         URL = "http://" + host + ":" + port + "/users";
         LOGIN_END_POINT = URL + "/login";
         REGISTER_END_POINT = URL + "/register";
-        UPDATE_END_POINT = URL + "/update/{id}";
-        DELETE_END_POINT = URL + "/delete/{id}";
+        UPDATE_END_POINT = URL + "/update";
+        DELETE_END_POINT = URL + "/delete";
+        GET_USER_BY_ID_END_POINT = URL + "/get/{id}";
+        GET_USER_BY_NAME_END_POINT = URL + "/get/name/{username}";
+        GET_ALL_USERS_END_POINT = URL + "/all";
     }
 
     public User loginUser(String username, String password) {
@@ -35,18 +41,28 @@ public class UserClient {
     }
 
     public void updateUser(User user) {
-        Map< String, Integer> params = new HashMap<>();
-        params.put("id", (int) user.getId());
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put(UPDATE_END_POINT, user, params);
+        restTemplate.put(UPDATE_END_POINT, user);
     }
 
     public void deleteUser(User user) {
-        Map<String, Integer> params = new HashMap<>();
-        params.put("id", (int) user.getId());
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.delete(DELETE_END_POINT, params);
+        restTemplate.postForObject(DELETE_END_POINT, user, User.class);
     }
 
+    public User getUserById(long id) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(GET_USER_BY_ID_END_POINT, User.class, id);
+    }
+
+    public User getUserByName(String username) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(GET_USER_BY_NAME_END_POINT, User.class, username);
+    }
+
+    public List<User> getAllUsers() {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(GET_ALL_USERS_END_POINT, UserList.class).getUsers();
+    }
 
 }
