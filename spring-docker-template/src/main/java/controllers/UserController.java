@@ -21,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public String index() {
         return "Users";
     }

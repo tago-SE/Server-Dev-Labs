@@ -7,6 +7,9 @@ https://www.baeldung.com/dockerizing-spring-boot-application
 Example project
 https://github.com/chargeahead/SpringBootDockerMaven/tree/master/src/main
 
+Developing JSF application with springboot:
+https://medium.com/@tsepomaleka/integrating-spring-boot-with-java-server-faces-using-joinfaces-297e64f6a28f
+
 # Java and Maven configuration 
 
 Before starting make sure that JAVA_HOME and MAVEN_HOME has been installed

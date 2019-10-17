@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xml:lang="en" lang="en">
+<head>
+    <title>Login</title>
+</head>
+<h:body>
+    <h:form id="loginForm">
+        <h:outputText value="Username" />
+        <h:inputText id="uname" value="#{userBean.userName}" required = "true" requiredMessage="Please enter a username"/>
+        <h:message for="uname" style="color:red"/>
+        <br/>
+        <h:outputText value="Password" />
+        <h:inputSecret id="pass" value="#{userBean.password}" required = "true" requiredMessage="Please enter a password"/>
+        <h:message for="pass" style="color:red"/>
+        <br/>
+        <br/>
+        <h:commandButton id="loginBtn" value="Login" action="#{userBean.doLogin}"/>
+        <br/>
+        <h:messages globalOnly="true" style="color:red"/>
+        <br/>
+        <h:link value="Index" outcome="index"/><br/>
+    </h:form>
+</h:body>
+</html>
