@@ -4,8 +4,6 @@ import models.User;
 import models.UserList;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class UserClient {
