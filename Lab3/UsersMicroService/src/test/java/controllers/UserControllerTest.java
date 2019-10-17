@@ -1,24 +1,32 @@
 package controllers;
 
+import models.Dummy;
 import models.User;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import services.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
 
+/**
+ * This test requires that the service is running and can be reached
+ */
 public class UserControllerTest {
 
-    private static final boolean IGNORE_TESTS = true;
+    // To prevent blocking of the application due to invalid JUnit test configuration of host address
+    // should be set to true unless explicitly you want unit tests to be ran from here
+    private static final boolean IGNORE_TESTS = false;
+
     private static final String HOST    = "localhost";
     private static final int PORT       = 8080;
 
@@ -26,6 +34,8 @@ public class UserControllerTest {
 
     private static List<User> createdUsers = new ArrayList<>();
     private static UserService s = new UserService();
+
+    private static UserClient client = new UserClient(HOST, PORT);
 
 
     @Test
@@ -40,25 +50,24 @@ public class UserControllerTest {
     public void loginUser() {
         if (IGNORE_TESTS)
             return;
+
+        System.out.println(client.LOGIN_END_POINT);
         String name = "" + Math.random();
         User u = s.register(name, name);
         createdUsers.add(u);
 
-        String uri = URL + "/login/" + name + "/" + name;
-        RestTemplate restTemplate = new RestTemplate();
-        assertNotNull(restTemplate.getForObject(uri, User.class));
-        uri = URL + "/login/" + name + "/" + "asdasdasdasdasd";
-        assertNull(restTemplate.getForObject(uri, User.class));
+        User loginUser = client.loginUser(name, name);
+        assertNotNull(loginUser);
+        assertNull(client.loginUser(name, name + "asdasdassd"));
     }
 
     @Test
     public void registerUser() {
         if (IGNORE_TESTS)
             return;
+        System.out.println(client.REGISTER_END_POINT);
         String name = "" + Math.random();
-        String uri = URL + "/register/" + name + "/" + name;
-        RestTemplate restTemplate = new RestTemplate();
-        User u = restTemplate.getForObject(uri, User.class);
+        User u = client.registerUser(new User(name, name));
         createdUsers.add(u);
         assertNotNull(u);
     }
@@ -69,18 +78,10 @@ public class UserControllerTest {
             return;
 
         String name = "" + Math.random();
-        String uri = URL + "/register/" + name + "/" + name;
-        RestTemplate restTemplate = new RestTemplate();
-        User u = restTemplate.getForObject(uri, User.class);
-        createdUsers.add(u);
-
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        User u = client.registerUser(new User(name, name));
+        //createdUsers.add(u);
         u.setEmail("tiago@kth.se");
-        uri = URL + "/update/";
-        //restTemplate.postForObject(uri, headers);
-
+        client.updateUser(u);
     }
 
     @Test

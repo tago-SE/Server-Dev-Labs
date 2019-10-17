@@ -1,8 +1,12 @@
 package controllers;
 
+import models.Dummy;
 import models.User;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.UserService;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -21,24 +25,42 @@ public class UserController {
         return "Users";
     }
 
-    @RequestMapping("/login/{username}/{password}")
-    public User loginUser(@PathVariable("username") String username, @PathVariable("password") String password) {
-        return userService.login(username, password);
+    //@RequestMapping("/login/{username}/{password}")
+    //public User loginUser(@PathVariable("username") String username, @PathVariable("password") String password) {
+    @PostMapping("/login")
+    public User loginUser(@Valid @RequestBody User user) {
+        return userService.login(user.getUsername(), user.getPassword());
     }
 
-    @RequestMapping("/register/{username}/{password}")
-    public User registerUser(@PathVariable("username") String username, @PathVariable("password") String password) {
-        return userService.register(username, password);
+    //@RequestMapping("/register/{username}/{password}")
+    // public User registerUser(@PathVariable("username") String username, @PathVariable("password") String password) {
+
+    @PostMapping("/register")
+    public User registerUser(@Valid @RequestBody User user) {
+        return userService.register(user.getUsername(), user.getPassword());
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public boolean update(User user) {
-       return userService.update(user);
+    @Deprecated
+    @PutMapping("/updateDummy/{id}")
+    public ResponseEntity<Dummy> updateDummy(@PathVariable(value = "id") Long id,  @Valid @RequestBody Dummy dummy) {
+        System.out.println("RECV: " + dummy);
+        dummy.setId(55);
+        dummy.setName("UPDATE_" + dummy.getName());
+        return ResponseEntity.ok(dummy);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public User delete(User user) {
-        return userService.delete(user);
+   @PutMapping("/update/{id}")
+   public ResponseEntity<User> updateUser(
+           @PathVariable(value = "id") Long id,
+           @Valid @RequestBody User user) {
+       return ResponseEntity.ok(userService.update(user));
+    }
+
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<User> deleteUser(
+            @PathVariable(value = "id") Long id,
+            @Valid @RequestBody User user) {
+        return ResponseEntity.ok(userService.delete(user));
     }
 
     @RequestMapping("/get/{id}")

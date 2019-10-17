@@ -48,7 +48,7 @@ public class UserServiceTest {
         User u = s.register(name, name);
         createdUsers.add(u);
         u.setCountry("Sweden");
-        assertTrue(s.update(u));
+        assertNotNull(s.update(u));
         User u2 = s.getUserById(u.getId());
         assertEquals(u.getCountry(), u2.getCountry());
     }

@@ -1,5 +1,8 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,14 +19,14 @@ public class User implements EntityInt {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Version
+    private long version;
+
     @Column(name = "name", nullable = false, unique = true)
     private String username;
 
     @Column(name = "pass", nullable = false)
     private String password;
-
-    @Version
-    private long version;
 
     private String email;
     private String country;
@@ -39,6 +42,27 @@ public class User implements EntityInt {
         setUsername(username);
         setPassword(password);
     }
+
+    /*
+    @JsonCreator
+    public User(@JsonProperty("id") long id,
+                 @JsonProperty("version") int version,
+                 @JsonProperty("name") String username,
+                 @JsonProperty("pass") String password,
+                @JsonProperty("name") String email,
+                @JsonProperty("name") String country,
+                @JsonProperty("name") String occupation) {
+        this.id = id;
+        this.version = version;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.country = country;
+        this.occupation = occupation;
+    }
+    */
+
+
 
     @Override
     public long getId() {

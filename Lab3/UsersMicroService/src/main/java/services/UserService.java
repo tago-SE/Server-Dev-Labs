@@ -84,7 +84,7 @@ public class UserService {
         return delete(new User(id));
     }
 
-    public boolean update(User source) {
+    public User update(User source) {
         EntityManagerFactory factory = HibernateUtil.getEntityManagerFactory();
         EntityManager em = factory.createEntityManager();
         try {
@@ -94,7 +94,7 @@ public class UserService {
                 try {
                     persistent.update(em, source);
                     em.getTransaction().commit();
-                    return true;
+                    return persistent;
                 } catch (Exception e) {
                     em.getTransaction().rollback();
                     throw e;
@@ -104,7 +104,7 @@ public class UserService {
         finally {
             em.close();
         }
-        return false;
+        return null;
     }
 
     public List<User> getAll() {
