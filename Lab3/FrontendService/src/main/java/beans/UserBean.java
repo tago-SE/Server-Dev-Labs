@@ -1,41 +1,51 @@
 package beans;
 
-import models.User;
+import clients.ClientUtil;
+import clients.models.User;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import static clients.ClientUtil.userClient;
+
 @ManagedBean
 @SessionScoped
 public class UserBean {
 
-    private int id;
-    private String userName = "Tiago";
-    private String password;
-    private String email;
-    private String country;
-    private String occupation;
-    private boolean authorized = false;
+
     private User user;
+
+
+    private boolean isLoggedIn;
+    private String username;
+    private String password;
+
 
     public UserBean() { }
 
-    public int getId() {
-        return id;
+
+    public void setUser(User user) {
+        this.user = user;
+        this.username = user.getUsername();
+        this.password = user.getPassword();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String doUpdate(String var) {
+        return null;
     }
 
-    public String getUserName() {
-        return userName;
+    //=======================================================================================================
+    //  Login / Register / Logout
+    //=======================================================================================================
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -46,63 +56,45 @@ public class UserBean {
         this.password = password;
     }
 
-    public boolean isAuthorized() {
-        return authorized;
+    public boolean isLoggedIn() {
+        return isLoggedIn;
     }
 
-    public void setAuthorized(boolean authorized) {
-        this.authorized = authorized;
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getOccupation() {
-        return occupation;
-    }
-
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-    public String doLogin() {
-        return "index";
-    }
-
-    public String doLogout() {
-        if (authorized) {
-            authorized = false;
-            this.user = null;
-            return "index";
-        }
-        return null;
+    private void onLogin(User user) {
+        isLoggedIn = true;
+        setUser(user);
     }
 
     public String doRegister() {
-        return "index";
+        User result = userClient.loginUser(username, password);
+        if (result != null) {
+            onLogin(result);
+            return "index.jsp";
+        }
+        return null; // Something went wrong
     }
 
-    public String doUpdate(String var) {
-        return null;
+    public String doLogin() {
+        User u = new User(username, password);
+        System.out.println(u.toString());
+        User result = userClient.registerUser(u);
+        if (result != null) {
+            onLogin(result);
+            return "index.jsp";
+        } else {
+            return null; // Something went wrong
+        }
     }
+
+    public String doLogout() {
+        isLoggedIn = false;
+        user = null;
+        return "index.jsp";
+    }
+
+
 }

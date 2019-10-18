@@ -15,7 +15,6 @@ import javax.faces.webapp.FacesServlet;
 
 
 @SpringBootApplication
-@ComponentScan({"controllers", "services"})
 public class Application  extends SpringBootServletInitializer {
 
 

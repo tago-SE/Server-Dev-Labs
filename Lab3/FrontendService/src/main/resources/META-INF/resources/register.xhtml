@@ -10,7 +10,7 @@
     <h:form>
         Username:
         <br/>
-        <h:inputText id="name" value="#{userBean.userName}" required = "true" requiredMessage="Please enter a username"/>
+        <h:inputText id="name" value="#{userBean.username}" required = "true" requiredMessage="Please enter a username"/>
         <h:message for="name" style="color:red"/>
         <br/>
         <br/>
@@ -23,7 +23,6 @@
         <h:commandButton id="btn" value="Register" action="#{userBean.doRegister}"/>
         <br/>
         <h:messages globalOnly="true" style="color:red"/>
-
         <br/><h:link value="Index" outcome="index"/><br/>
     </h:form>
 </h:body>

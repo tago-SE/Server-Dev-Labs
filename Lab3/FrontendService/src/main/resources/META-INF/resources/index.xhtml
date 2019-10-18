@@ -13,16 +13,16 @@
 
     <h:form id="userLogin">
         <!-- Open login / registration -->
-        <h:form rendered="#{!userBean.authorized}">
+        <h:form rendered="#{!userBean.loggedIn}">
             <h:commandButton id="loginButton" value="Sign in" action="#{pageControllerBean.moveToLogin}"/>
             <h:commandButton id="registerButton" value="Register" action="#{pageControllerBean.moveToRegister}"/>
         </h:form>
         <!-- Logout -->
-        <h:form rendered="#{userBean.authorized}">
+        <h:form rendered="#{userBean.loggedIn}">
             <h:commandButton id="signout" value="Sign out" action="#{userBean.doLogout}"/>
             <br/>
             Signed in as:
-            <h:outputText value="#{userBean.userName}"/>
+            <h:outputText value="#{userBean.username}"/>
             <br/>
         </h:form>
     </h:form>
