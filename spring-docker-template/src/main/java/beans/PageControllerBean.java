@@ -9,11 +9,11 @@ import java.io.Serializable;
 public class PageControllerBean implements Serializable {
 
     public String moveToRegister() {
-        return "register.jsf";
+        return "register";
     }
 
     public String moveToLogin() {
-        return "login.jsf";
+        return "login";
     }
 
     public String moveToIndex() { return "index"; }

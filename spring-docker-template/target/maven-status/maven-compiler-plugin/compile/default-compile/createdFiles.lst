@@ -1,4 +1,0 @@
-models\User.class
-controllers\UserController.class
-services\UserService.class
-main\Application.class

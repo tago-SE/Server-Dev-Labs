@@ -9,6 +9,7 @@ https://github.com/chargeahead/SpringBootDockerMaven/tree/master/src/main
 
 Developing JSF application with springboot:
 https://medium.com/@tsepomaleka/integrating-spring-boot-with-java-server-faces-using-joinfaces-297e64f6a28f
+https://github.com/tsepomaleka/OpenCode/tree/master/integrating-spring-and-jsf
 
 # Java and Maven configuration 
 
