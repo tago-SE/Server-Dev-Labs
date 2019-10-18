@@ -7,7 +7,7 @@
 
 
     <groupId>org.springframework</groupId>
-    <artifactId>spring-docker-template</artifactId>
+    <artifactId>frontendservice</artifactId>
     <version>0.1.0</version>
 
     <description>Template project for Spring Boot</description>
