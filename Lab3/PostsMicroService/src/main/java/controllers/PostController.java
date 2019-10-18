@@ -30,12 +30,12 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Post> registerUser(@Valid @RequestBody Post Post) {
+    public ResponseEntity<Post> createPost(@Valid @RequestBody Post Post) {
         return ResponseEntity.ok(postService.insert(Post));
     }
 
    @PutMapping("/update")
-   public ResponseEntity<Post> updateUser(@Valid @RequestBody Post Post) {
+   public ResponseEntity<Post> updatePost(@Valid @RequestBody Post Post) {
        return ResponseEntity.ok(postService.update(Post));
     }
 
@@ -48,13 +48,13 @@ public class PostController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Post> getUserById(@PathVariable("id") long id) {
+    public ResponseEntity<Post> getPostById(@PathVariable("id") long id) {
         return ResponseEntity.ok(postService.getPostById(id));
     }
 
     @GetMapping("/get/user/{username}")
-    public ResponseEntity<PostList> getUserByName(@PathVariable("username") String name) {
-        return ResponseEntity.ok(new PostList(postService.getUserPosts(name)));
+    public ResponseEntity<PostList> getPostsByName(@PathVariable("username") String name) {
+        return ResponseEntity.ok(new PostList(postService.getPostsByName(name)));
     }
 
 }

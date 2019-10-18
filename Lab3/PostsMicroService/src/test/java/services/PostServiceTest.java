@@ -49,7 +49,7 @@ public class PostServiceTest {
     }
 
     @Test
-    public void getUserPosts() {
+    public void getPostsByName() {
         String poster = "poster_" + Math.random();
         Post p1 = createPostForUser(poster);
         s.insert(p1);
@@ -57,7 +57,7 @@ public class PostServiceTest {
         Post p2 = createPostForUser(poster);
         s.insert(p2);
         createdPosts.add(p2);
-        assertEquals(2, s.getUserPosts(poster).size());
+        assertEquals(2, s.getPostsByName(poster).size());
     }
 
     @Test

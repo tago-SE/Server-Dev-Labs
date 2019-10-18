@@ -83,7 +83,7 @@ public class PostService {
         return null;
     }
 
-    public List<Post> getUserPosts(String username) {
+    public List<Post> getPostsByName(String username) {
         EntityManagerFactory factory = HibernateUtil.getEntityManagerFactory();
         EntityManager em = factory.createEntityManager();
         try {
