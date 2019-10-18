@@ -35,7 +35,7 @@ After executing the goal, we'll have more files and directories in the project:
 
 # Run the springboot application
 
-     ./mvnw package && java -jar target/spring-docker-template-0.1.0.jar
+     ./mvnw package && java -jar target/frontendservice-0.1.0.jar
      
 Note that the command is mvnw.cmd for window  
 After the application has started you can access it using localhost:8080/users/all for example
@@ -53,7 +53,7 @@ check if the docker image was created
 
 Spawn a container running the created docker image
 
-    docker run -it -p 9090:8080 -t springio/spring-docker-template
+    docker run -it -p 9090:8080 -t springio/frontendservice
 
 Append 'winpty' before the command if the input device is not a TTY.
 

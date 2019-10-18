@@ -20,6 +20,7 @@ public class UserClientTest {
         User u = client.registerUser(new User(name, name));
         System.out.println(u.toString());
         assertNotNull(u);
+        client.deleteUser(u);
     }
 
 }
