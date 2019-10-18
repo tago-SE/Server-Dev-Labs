@@ -21,7 +21,7 @@ public class MessageController {
     }
 
     /**
-     * Index response to indicate that the server is running.
+     * Echo response to indicate that the server is running.
      * @return "Messages"
      */
     @RequestMapping("")
