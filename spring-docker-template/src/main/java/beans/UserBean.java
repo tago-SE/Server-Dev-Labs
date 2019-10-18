@@ -2,7 +2,6 @@ package beans;
 
 import models.User;
 
-/*
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -107,4 +106,3 @@ public class UserBean {
         return null;
     }
 }
-*/

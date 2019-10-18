@@ -44,7 +44,7 @@
             <artifactId>jaxb-api</artifactId>
         </dependency>
 
-        <!-- JoinFaces Starter dependenc -->
+        <!-- JoinFaces Starter dependency -->
         <dependency>
             <groupId>org.joinfaces</groupId>
             <artifactId>jsf-spring-boot-starter</artifactId>
