@@ -80,7 +80,6 @@ public class UserBean {
 
     public String doLogin() {
         User u = new User(username, password);
-        System.out.println(u.toString());
         User result = userClient.registerUser(u);
         if (result != null) {
             onLogin(result);
