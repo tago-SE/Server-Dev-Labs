@@ -1,4 +1,4 @@
-# How to dockerize a Spring boot application
+# How to dockerize a JSF/Springboot application
 
 https://spring.io/guides/gs/spring-boot-docker/
 

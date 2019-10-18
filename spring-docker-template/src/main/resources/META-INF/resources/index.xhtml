@@ -12,11 +12,12 @@
 <h:body>
 
     <h:form id="userLogin">
-        <!-- GOTO login / registration -->
+        <!-- Open login / registration -->
         <h:form rendered="#{!userBean.authorized}">
             <h:commandButton id="loginButton" value="Sign in" action="#{pageControllerBean.moveToLogin}"/>
             <h:commandButton id="registerButton" value="Register" action="#{pageControllerBean.moveToRegister}"/>
         </h:form>
+        <!-- Logout -->
         <h:form rendered="#{userBean.authorized}">
             <h:commandButton id="signout" value="Sign out" action="#{userBean.doLogout}"/>
             <br/>
