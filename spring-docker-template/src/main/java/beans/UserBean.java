@@ -2,6 +2,7 @@ package beans;
 
 import models.User;
 
+/*
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -85,11 +86,6 @@ public class UserBean {
     public void setUser(User user) {
         this.user = user;
     }
-
-    /**
-     * Attempts to login the user
-     * @return next web page, null if same
-     */
     public String doLogin() {
         return "index";
     }
@@ -111,3 +107,4 @@ public class UserBean {
         return null;
     }
 }
+*/

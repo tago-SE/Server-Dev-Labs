@@ -10,8 +10,6 @@
     <artifactId>spring-docker-template</artifactId>
     <version>0.1.0</version>
 
-    <!--<packaging>war</packaging>-->
-
     <description>Template project for Spring Boot</description>
 
     <parent>
@@ -46,7 +44,7 @@
             <artifactId>jaxb-api</artifactId>
         </dependency>
 
-        <!-- JoinFaces Starter dependency -->
+        <!-- JoinFaces Starter dependenc -->
         <dependency>
             <groupId>org.joinfaces</groupId>
             <artifactId>jsf-spring-boot-starter</artifactId>
@@ -59,7 +57,7 @@
         </dependency>
     </dependencies>
 
-    <!-- Dependency management section in your POM file -->
+    <!-- Dependency management section in your POM file    -->
     <dependencyManagement>
         <dependencies>
             <dependency>
