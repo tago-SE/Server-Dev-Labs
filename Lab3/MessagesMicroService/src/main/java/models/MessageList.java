@@ -14,15 +14,16 @@ public class MessageList implements Serializable {
         // Required empty constructor
     }
 
-    public MessageList(List<Message> users) {
-        this.list = users;
+    public MessageList(List<Message> list) {
+        this.list = list;
     }
 
-    public List<Message> getMessages() {
+    public List<Message> getList() {
         return list;
     }
 
-    public void setMessages(List<Message> users) {
-        this.list = users;
+    public void setList(List<Message> list) {
+        this.list = list;
     }
 }
+
