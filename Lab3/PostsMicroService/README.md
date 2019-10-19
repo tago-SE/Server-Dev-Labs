@@ -23,7 +23,6 @@ Checks if the docker image was created
     
 Runs the docker image. Notice that 'winpty' command is only needed if executed from windows.
 
+# End points
     192.168.99.100:9093/posts   (windows)
     localhost:9093/posts        (linux)
-    
-End-points
