@@ -60,7 +60,7 @@ public class UserClient {
 
     public List<User> getAllUsers() {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(GET_ALL_USERS_END_POINT, UserList.class).getUsers();
+        return restTemplate.getForObject(GET_ALL_USERS_END_POINT, UserList.class).getList();
     }
 
 }
