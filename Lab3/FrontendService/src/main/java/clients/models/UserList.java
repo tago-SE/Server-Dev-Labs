@@ -8,21 +8,21 @@ import java.util.List;
  */
 public class UserList implements Serializable {
 
-    private List<User> users;
+    private List<User> list;
 
     public UserList() {
         // Required empty constructor
     }
 
-    public UserList(List<User> users) {
-        this.users = users;
+    public UserList(List<User> list) {
+        this.list = list;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<User> getList() {
+        return list;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setList(List<User> list) {
+        this.list = list;
     }
 }

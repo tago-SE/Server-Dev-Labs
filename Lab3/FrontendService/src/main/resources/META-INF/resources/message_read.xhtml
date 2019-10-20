@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <!-- USER AUTH -->
+    <h:form id="userLogin">
+        <h:form rendered="#{!userBean.loggedIn}">
+            <h:commandButton id="loginButton" value="Sign in" action="#{pageControllerBean.moveToLogin}"/>
+            <h:commandButton id="registerButton" value="Register" action="#{pageControllerBean.moveToRegister}"/>
+        </h:form>
+        <h:form rendered="#{userBean.loggedIn}">
+            <h:commandButton id="signout" value="Sign out" action="#{userBean.doLogout}"/>
+            <br/>
+            Signed in as: <h:outputText value="#{userBean.username}"/>
+            <br/>
+        </h:form>
+    </h:form>
+    <br/>
+    <h:form id="deniedAccess" rendered="#{!userBean.loggedIn}">
+        <h:outputText style="color:red" value="You need to be logged in to have access to this page."/>
+        <br/>
+        <br/>
+        <h:link value="Index" outcome="index"/><br/>
+    </h:form>
+
+    <!-- END USER AUTH -->
+    <h:form rendered="#{userBean.loggedIn}">
+        <H3>Subject: #{readMessageBean.message.subject}</H3>
+        From: #{readMessageBean.message.sender}<br/>
+        Date: #{readMessageBean.message.timestamp}<br/>
+        Message: <br/>#{readMessageBean.message.message}<br/>
+        <br/>
+        <h:form>
+            <h:commandButton value="delete" action="#{pageControllerBean.moveToInbox}"
+                             actionListener="#{readMessageBean.delete()}"/>
+            <h:commandButton value="reply" action="#{pageControllerBean.moveToMessageWrite}"
+                             actionListener="#{sendMessageBean.reply(readMessageBean.message)}"/>
+        </h:form>
+        <br/>
+        <h:link value="Inbox" outcome="inbox"/><br/>
+    </h:form>
+</body>
+</html>

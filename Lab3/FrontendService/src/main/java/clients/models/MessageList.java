@@ -18,11 +18,11 @@ public class MessageList implements Serializable {
         this.list = list;
     }
 
-    public List<Message> getMessages() {
+    public List<Message> getList() {
         return list;
     }
 
-    public void setMessages(List<Message> list) {
+    public void setList(List<Message> list) {
         this.list = list;
     }
 }

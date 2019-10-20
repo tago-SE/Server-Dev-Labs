@@ -28,5 +28,9 @@
     </h:form>
     <br/>
     <br/>
+    <h:link value="Message" outcome="message" rendered="#{userBean.loggedIn}"/><br/>
+    <h:link value="Inbox" outcome="inbox" rendered="#{userBean.loggedIn}"/><br/>
+    <h:link value="Users" outcome="users"/><br/>
+    <h:link value="Settings" outcome="settings" rendered="#{userBean.loggedIn}"/><br/>
 </h:body>
 </html>

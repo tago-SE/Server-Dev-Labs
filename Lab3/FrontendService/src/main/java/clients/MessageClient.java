@@ -48,11 +48,11 @@ public class MessageClient {
 
     public List<Message> getMessageInbox(String username) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(GET_INBOX_END_POINT, MessageList.class, username).getMessages();
+        return restTemplate.getForObject(GET_INBOX_END_POINT, MessageList.class, username).getList();
     }
 
     public List<Message> getAllMessages() {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(GET_ALL_END_POINT, MessageList.class).getMessages();
+        return restTemplate.getForObject(GET_ALL_END_POINT, MessageList.class).getList();
     }
 }

@@ -9,12 +9,25 @@ import java.io.Serializable;
 @SessionScoped
 public class PageControllerBean implements Serializable {
 
-    public String moveToRegister() {
+    public static String moveToRegister() {
         return "register.jsf";
     }
 
-    public String moveToLogin() {
+    public static String moveToLogin() {
         return "login.jsf";
     }
+
+    public static String moveToInbox() { return "inbox.jsf"; }
+
+    public static String moveToMessageRead() { return "message_read.jsf"; }
+
+    public static String moveToMessageWrite() { return "message.jsf"; }
+
+    public static String moveToIndex() { return "index"; }
+
+    public String moveToProfile() {
+        return "profile.jsf";
+    }
+
 
 }

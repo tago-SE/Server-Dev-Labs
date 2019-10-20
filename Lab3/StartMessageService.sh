@@ -1,4 +1,4 @@
-# This bash script is not finished.
+# Reasons for this bash script failing might be that the MySQL database is not reachable.
 
 #!/bin/bash
 

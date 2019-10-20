@@ -70,29 +70,30 @@ public class UserBean {
     }
 
     public String doRegister() {
-        User result = userClient.loginUser(username, password);
-        if (result != null) {
-            onLogin(result);
-            return "index.jsp";
+        if (username != null && username.length() > 0 && password != null && password.length() > 0) {
+            User result = userClient.registerUser(new User(password, username));
+            if (result != null) {
+                onLogin(result);
+                return PageControllerBean.moveToIndex();
+            }
         }
-        return null; // Something went wrong
+        return null;
     }
 
     public String doLogin() {
-        User u = new User(username, password);
-        User result = userClient.registerUser(u);
+        User result = userClient.loginUser(username, password);
         if (result != null) {
             onLogin(result);
-            return "index.jsp";
-        } else {
-            return null; // Something went wrong
+            return PageControllerBean.moveToIndex();
         }
+
+        return null;
     }
 
     public String doLogout() {
         isLoggedIn = false;
         user = null;
-        return "index.jsp";
+        return PageControllerBean.moveToIndex();
     }
 
 

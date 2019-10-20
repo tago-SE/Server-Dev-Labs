@@ -1,5 +1,9 @@
 package main;
 
+import clients.ClientUtil;
+import clients.MessageClient;
+import clients.PostClient;
+import clients.UserClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

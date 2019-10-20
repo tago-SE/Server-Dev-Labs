@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <!-- USER AUTH -->
+    <h:form id="userLogin">
+        <h:form rendered="#{!userBean.loggedIn}">
+            <h:commandButton id="loginButton" value="Sign in" action="#{pageControllerBean.moveToLogin}"/>
+            <h:commandButton id="registerButton" value="Register" action="#{pageControllerBean.moveToRegister}"/>
+        </h:form>
+        <h:form rendered="#{userBean.loggedIn}">
+            <h:commandButton id="signout" value="Sign out" action="#{userBean.doLogout}"/>
+            <br/>
+            Signed in as: <h:outputText value="#{userBean.username}"/>
+            <br/>
+        </h:form>
+    </h:form>
+    <br/>
+    <h:form id="deniedAccess" rendered="#{!userBean.loggedIn}">
+        <h:outputText style="color:red" value="You need to be logged in to have access to this page."/>
+        <br/>
+        <br/>
+        <h:link value="Index" outcome="index"/><br/>
+    </h:form>
+    <!-- MESSAGE INBOX -->
+    <h:form rendered="#{userBean.loggedIn}">
+        <H3>Inbox: #{userBean.username}</H3>
+        <h:form>
+            <h:dataTable value="#{inboxBean.loadUserInbox(userBean.username)}"
+                         var="message"
+                         emptyMessage="No Records to Display">>
+                <h:column>
+                    <f:facet name="header">Unread</f:facet>
+                    #{message.unread}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">From</f:facet>
+                    #{message.sender}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Subject</f:facet>
+                    #{message.subject}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Time</f:facet>
+                    #{message.timestamp}
+                </h:column>
+                <h:column>
+                    <h:commandButton value="read" action="#{pageControllerBean.moveToMessageRead()}"
+                    actionListener="#{readMessageBean.setMessage(message)}"
+                    />
+                </h:column>
+                <h:column>
+                    <h:commandButton value="delete" action="#{pageControllerBean.moveToInbox()}"
+                                     actionListener="#{inboxBean.deleteMessage(message)}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <br/><h:link value="Index" outcome="index"/><br/>
+    </h:form>
+</body>
+</html>
