@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xml:lang="en" lang="en">
+<head>
+    <title>Users</title>
+</head>
+<body>
+    <!-- USER AUTH -->
+    <h:form id="userLogin">
+        <h:form rendered="#{!userBean.loggedIn}">
+            <h:commandButton id="loginButton" value="Sign in" action="#{pageControllerBean.moveToLogin}"/>
+            <h:commandButton id="registerButton" value="Register" action="#{pageControllerBean.moveToRegister}"/>
+        </h:form>
+        <h:form rendered="#{userBean.loggedIn}">
+            <h:commandButton id="signout" value="Sign out" action="#{userBean.doLogout}"/>
+            <br/>
+            Signed in as: <h:outputText value="#{userBean.username}"/>
+            <br/>
+        </h:form>
+    </h:form>
+    <!-- END USER AUTH -->
+    <h:form>
+        <h:dataTable value="#{usersBean.loadAll()}"
+                     var="user"
+                     emptyMessage="No Records to Display">>
+            <h:column>
+                <f:facet name="header">User</f:facet>
+                <h:commandLink value="#{user.username}"
+                               action="#{pageControllerBean.moveToProfile()}">
+                    <f:actionListener binding="#{profileBean.setUser(user)}"/>
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
+    <br/><h:link value="Index" outcome="index"/><br/>
+</body>
+</html>

@@ -43,27 +43,6 @@ public class User implements EntityInt {
         setPassword(password);
     }
 
-    /*
-    @JsonCreator
-    public User(@JsonProperty("id") long id,
-                 @JsonProperty("version") int version,
-                 @JsonProperty("name") String username,
-                 @JsonProperty("pass") String password,
-                @JsonProperty("name") String email,
-                @JsonProperty("name") String country,
-                @JsonProperty("name") String occupation) {
-        this.id = id;
-        this.version = version;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.country = country;
-        this.occupation = occupation;
-    }
-    */
-
-
-
     @Override
     public long getId() {
         return id;
@@ -144,7 +123,6 @@ public class User implements EntityInt {
         country = source.country;
         email = source.email;
         occupation = source.occupation;
-        password = source.password;
     }
 
     @Override

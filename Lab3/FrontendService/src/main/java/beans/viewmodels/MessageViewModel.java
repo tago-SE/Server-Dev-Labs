@@ -2,6 +2,9 @@ package beans.viewmodels;
 
 import clients.models.Message;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MessageViewModel {
 
     private long id;
@@ -80,6 +83,14 @@ public class MessageViewModel {
 
     public void setUnread(boolean unread) {
         this.unread = unread;
+    }
+
+    public static List<MessageViewModel> toList(List<Message> messageList) {
+        List<MessageViewModel> newList = new ArrayList<>();
+        for (Message m : messageList) {
+            newList.add(new MessageViewModel(m));
+        }
+        return newList;
     }
 
 }

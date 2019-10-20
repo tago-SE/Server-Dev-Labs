@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Settings</title>
+</head>
+<body>
+    <!-- USER AUTH -->
+    <h:form id="userLogin">
+        <h:form rendered="#{!userBean.loggedIn}">
+            <h:commandButton id="loginButton" value="Sign in" action="#{pageControllerBean.moveToLogin}"/>
+            <h:commandButton id="registerButton" value="Register" action="#{pageControllerBean.moveToRegister}"/>
+        </h:form>
+        <h:form rendered="#{userBean.loggedIn}">
+            <h:commandButton id="signout" value="Sign out" action="#{userBean.doLogout}"/>
+            <br/>
+            Signed in as: <h:outputText value="#{userBean.username}"/>
+            <br/>
+        </h:form>
+    </h:form>
+    <br/>
+    <h:form id="deniedAccess" rendered="#{!userBean.loggedIn}">
+        <h:outputText style="color:red" value="You need to be logged in to have access to this page."/>
+        <br/>
+        <br/>
+        <h:link value="Index" outcome="index"/><br/>
+    </h:form>
+    <!-- END USER AUTH -->
+
+    <h:form rendered="#{userBean.loggedIn}">
+        <H3>Settings</H3>
+        <table>
+            <tr>
+                <th><h:outputText value="E-mail: "/></th>
+                <th><h:inputText id="email" value="#{userBean.newEmail}"/></th>
+                <th> <h:commandButton id="upEmail" value="update" action="#{userBean.update('email')}"/></th>
+            </tr>
+            <tr>
+                <th><h:outputText value="Country: "/></th>
+                <th><h:inputText id="country" value="#{userBean.newCountry}"/></th>
+                <th> <h:commandButton id="upCountry" value="update" action="#{userBean.update('country')}"/></th>
+            </tr>
+            <tr>
+                <th><h:outputText value="Occupation: "/></th>
+                <th><h:inputText id="occupation" value="#{userBean.newOccupation}"/></th>
+                <th> <h:commandButton id="upOccupation" value="update" action="#{userBean.update('occupation')}"/></th>
+            </tr>
+
+        </table>
+        <h:messages globalOnly="true" style="color:red"/>
+
+        <br/>
+        <br/><h:link value="Index" outcome="index"/>
+    </h:form>
+
+</body>
+</html>

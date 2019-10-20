@@ -16,7 +16,9 @@ public class UserBean {
 
 
     private User user;
-
+    private String newEmail;
+    private String newOccupation;
+    private String newCountry;
 
     private boolean isLoggedIn;
     private String username;
@@ -96,5 +98,45 @@ public class UserBean {
         return PageControllerBean.moveToIndex();
     }
 
+    //=======================================================================================================
+    //  User Detail Management
+    //=======================================================================================================
 
+
+    public String getNewEmail() {
+        return newEmail;
+    }
+
+    public void setNewEmail(String newEmail) {
+        this.newEmail = newEmail;
+    }
+
+    public String getNewOccupation() {
+        return newOccupation;
+    }
+
+    public void setNewOccupation(String newOccupation) {
+        this.newOccupation = newOccupation;
+    }
+
+    public String getNewCountry() {
+        return newCountry;
+    }
+
+    public void setNewCountry(String newCountry) {
+        this.newCountry = newCountry;
+    }
+
+    public String update(String column) {
+        boolean changed = false;
+        switch (column) {
+            case "occupation": user.setOccupation(newOccupation); changed = true; break;
+            case "email": user.setEmail(newEmail); changed = true; break;
+            case "country": user.setCountry(newCountry); changed = true; break;
+        }
+        if (changed) {
+            userClient.updateUser(user);
+        }
+        return null;
+    }
 }

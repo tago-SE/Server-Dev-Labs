@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <!-- USER AUTH -->
+    <h:form id="userLogin">
+        <h:form rendered="#{!userBean.loggedIn}">
+            <h:commandButton id="loginButton" value="Sign in" action="#{pageControllerBean.moveToLogin}"/>
+            <h:commandButton id="registerButton" value="Register" action="#{pageControllerBean.moveToRegister}"/>
+        </h:form>
+        <h:form rendered="#{userBean.loggedIn}">
+            <h:commandButton id="signout" value="Sign out" action="#{userBean.doLogout}"/>
+            <br/>
+            Signed in as: <h:outputText value="#{userBean.username}"/>
+            <br/>
+        </h:form>
+    </h:form>
+    <br/>
+    <h:form id="deniedAccess" rendered="#{!userBean.loggedIn}">
+        <h:outputText style="color:red" value="You need to be logged in to have access to this page."/>
+        <br/>
+        <br/>
+        <h:link value="Index" outcome="index"/><br/>
+    </h:form>
+    <!-- END USER AUTH -->
+    <h:form>
+        <H3>User: #{profileBean.user.username}</H3>
+        <table>
+            <tr>
+                <th>E-mail:</th><th><h:outputText value="#{profileBean.user.email}"/></th>
+            </tr><tr>
+            <th>Country:</th><th><h:outputText value="#{profileBean.user.country}"/></th>
+        </tr><tr>
+            <th>Occupation:</th><th><h:outputText value="#{profileBean.user.occupation}"/></th>
+        </tr>
+        </table>
+        <br/>
+
+        <h:form rendered="#{userBean.username == profileBean.user.username and userBean.loggedIn}">
+            Status:
+            <br/><h:inputTextarea id="status" value ="#{profileBean.postText}" required ="true" requiredMessage="Enter a message"/><br/>
+            <h:commandButton id="postStatus" value="Post" action="#{profileBean.submitPost()}" size = "40"/>
+            <h:message for="status" style="color:red"/>
+            <br/>
+        </h:form>
+
+        <br/><br/>
+
+        <h:dataTable value="#{profileBean.loadAllPosts()}"
+                     var="post"
+                     emptyMessage="No Records to Display">
+            <h:column>
+                <f:facet name="header">Time</f:facet>
+                <h:outputText value="#{post.getTimestamp()}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Status</f:facet>
+                <h:outputText value="#{post.getMessage()}"/>
+            </h:column>
+        </h:dataTable>
+        <h:messages globalOnly="true" style="color:red"/>
+    </h:form>
+
+    <br/>
+    <h:link value="Index " outcome="index"/>
+    <h:link rendered="#{userBean.username == profileBean.user.username and userBean.loggedIn}" value="Settings" outcome="settings"/>
+    <br/>
+</body>
+</html>
