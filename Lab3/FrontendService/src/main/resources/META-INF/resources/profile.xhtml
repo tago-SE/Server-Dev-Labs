@@ -23,13 +23,6 @@
             <br/>
         </h:form>
     </h:form>
-    <br/>
-    <h:form id="deniedAccess" rendered="#{!userBean.loggedIn}">
-        <h:outputText style="color:red" value="You need to be logged in to have access to this page."/>
-        <br/>
-        <br/>
-        <h:link value="Index" outcome="index"/><br/>
-    </h:form>
     <!-- END USER AUTH -->
     <h:form>
         <H3>User: #{profileBean.user.username}</H3>

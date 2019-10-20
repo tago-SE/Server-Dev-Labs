@@ -29,5 +29,9 @@ public class PageControllerBean implements Serializable {
         return "profile.jsf";
     }
 
+    public String canvasURL() {
+        return "http://localhost:3000";
+    }
+
 
 }
