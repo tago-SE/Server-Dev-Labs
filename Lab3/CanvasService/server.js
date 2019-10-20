@@ -10,6 +10,7 @@ var app = express();
 // process.env.PORT is related to deploying on heroku
 var server = app.listen(process.env.PORT || 3000, listen);
 
+
 // This call back just tells us that the server has started
 function listen() {
   var host = server.address().address;
@@ -36,7 +37,7 @@ io.sockets.on('connection',
     socket.on('mouse',
       function(data) {
         // Data comes in as whatever was sent, including objects
-        console.log("Received: 'mouse' " + data.x + " " + data.y);
+        //console.log("Received: 'mouse' " + data.x + " " + data.y);
       
         // Send it to all other clients
         socket.broadcast.emit('mouse', data);
