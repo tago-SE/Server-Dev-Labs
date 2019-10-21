@@ -10,7 +10,7 @@ Something that is lacking from t he current setup is that database access is har
 # End Points
 
 	192.168.99.100:3000					(canvas-drawer)
-	192.168.99.100:9090/index.xhtml		(frontend)
-	192.168.99.100:9091/users
+	192.168.99.100:9090					(frontend)
+	192.168.99.100:9091/users			
 	192.168.99.100:9092/messages
 	192.168.99.100:9093/posts

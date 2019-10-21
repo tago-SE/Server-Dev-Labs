@@ -30,7 +30,7 @@ public class PageControllerBean implements Serializable {
     }
 
     public String canvasURL() {
-        return "drawer.html";
+        return "drawer.xhtml";
     }
 
 
