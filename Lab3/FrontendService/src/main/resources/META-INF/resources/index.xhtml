@@ -28,10 +28,12 @@
     </h:form>
     <br/>
     <br/>
-    <h:link value="Message" outcome="message" rendered="#{userBean.loggedIn}"/><br/>
-    <h:link value="Inbox" outcome="inbox" rendered="#{userBean.loggedIn}"/><br/>
     <h:link value="Users" outcome="users"/><br/>
     <h:link value="Settings" outcome="settings" rendered="#{userBean.loggedIn}"/><br/>
-    <a href="#{pageControllerBean.canvasURL()}">Canvas Drawer</a>
+    <h:link value="Message" outcome="message" rendered="#{userBean.loggedIn}"/><br/>
+    <h:link value="Inbox" outcome="inbox" rendered="#{userBean.loggedIn}"/><br/>
+    <h:outputLink value="#{pageControllerBean.canvasURL()}" rendered="#{userBean.loggedIn}">
+        Drawer
+    </h:outputLink>
 </h:body>
 </html>
