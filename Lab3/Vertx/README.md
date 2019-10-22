@@ -7,6 +7,6 @@ I attack the problems by creating two separate projects provided I can´t find a
 
 1) Create a basic vert.x chat app with multiple clients connected to a single server.
 
-2) Check out examples of drawing graphs in real-time.
+2) Check out examples of what libraries to use to draw and update graphs in real-time.
 
 3) CRUD for saving and loading images and displaying them properly on the client side.
