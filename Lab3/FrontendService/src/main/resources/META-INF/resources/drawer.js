@@ -1,7 +1,5 @@
 var socket;
 
-// Store the painting
-
 function setup()
 {
     createCanvas(400, 400);
@@ -14,12 +12,10 @@ function setup()
         function(data) {
             console.log("Got: " + data.x + " " + data.y);
             //paintList.push(data);
-
             // Draw a blue circle
             fill(0,0,255);
             noStroke();
             ellipse(data.x, data.y, 20, 20);
-
         }
     );
 }
@@ -31,7 +27,6 @@ function draw()
 
 function mouseDragged()
 {
-    // Draw some white circles
     fill(255);
     noStroke();
     ellipse(mouseX,mouseY,20,20);
