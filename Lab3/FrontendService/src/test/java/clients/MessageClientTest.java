@@ -2,7 +2,6 @@ package clients;
 
 import clients.models.Message;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
