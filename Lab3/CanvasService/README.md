@@ -10,6 +10,6 @@ The files under CanvasService/public was only used for testing purposes, the act
     docker build -t canvas-drawer .
     docker run -p 3000:3000 -d canvas-drawer
 
-#End-points
+# End-points
 
     192.168.99.100:3000     (windows)
