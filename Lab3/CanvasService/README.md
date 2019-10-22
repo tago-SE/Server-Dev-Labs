@@ -4,6 +4,9 @@ The files under CanvasService/public was only used for testing purposes, the act
 
 # Build Setup
 
+    npm install express --save
+    npm install socket.io --save
+
     docker build -t canvas-drawer .
     docker run -p 3000:3000 -d canvas-drawer
 
