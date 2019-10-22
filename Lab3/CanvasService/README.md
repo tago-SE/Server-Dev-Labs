@@ -4,6 +4,7 @@ The files under CanvasService/public was only used for testing purposes, the act
 
 # Build Setup
 
+    npm init 
     npm install express --save
     npm install socket.io --save
 
