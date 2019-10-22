@@ -1,6 +1,6 @@
 This is a canvas drawer application allowing multiple users to connect to the server and  paint on the same canvas. It was made following "The Coding Train" and the original source code can be found here: https://github.com/CodingTrain/website 
 
-The files under /public was only used for testing purposes, the actual implementation is inside /FrontendService
+The files under CanvasService/public was only used for testing purposes, the actual implementation is inside ../FrontendService
 
 # Build Setup
 
