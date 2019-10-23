@@ -1,11 +1,11 @@
-package main;
-
 import io.vertx.core.Vertx;
 
-public class Application {
+import static io.vertx.core.Vertx.vertx;
+
+public class Main {
 
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
-        vertx.deployVerticle(new HelloVerticle());
+        vertx.deployVerticle(new GraphDataVerticle());
     }
 }
