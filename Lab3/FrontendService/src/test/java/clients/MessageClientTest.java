@@ -41,10 +41,10 @@ public class MessageClientTest {
         m = client.createMessage(m);
         m.setSubject("HelloWorld");
         m.setUnread(false);
-       client.updateMessage(m);
-       Message updated = client.getMessageById(m.getId());
-       assertEquals(m.getSubject(), updated.getSubject());
-       assertFalse(updated.isUnread());
+        client.updateMessage(m);
+        Message updated = client.getMessageById(m.getId());
+        assertEquals(m.getSubject(), updated.getSubject());
+        assertFalse(updated.isUnread());
         System.out.println(updated);
         client.deleteMessage(m);
     }

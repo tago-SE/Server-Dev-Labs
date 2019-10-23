@@ -1,13 +1,12 @@
+package vertx;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.core.http.HttpMethod;
-import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerResponse;
-import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
+import io.vertx.ext.web.handler.sockjs.PermittedOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 
 import java.text.DateFormat;
@@ -16,8 +15,10 @@ import java.util.Date;
 
 public class GraphDataVerticle extends AbstractVerticle {
 
+    /*
     @Override
     public void start(Future<Void> fut) {
+
         Router router = Router.router(vertx);
 
         // Allow events for the designated addresses in/out of the event bus bridge
@@ -46,4 +47,5 @@ public class GraphDataVerticle extends AbstractVerticle {
             eb.publish("chat.to.client", timestamp + ": " + message.body());
         });
     }
+     */
 }

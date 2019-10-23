@@ -1,4 +1,4 @@
-package io.vertx.sample;
+package vertx;
 
 import db.UserDiagramDao;
 import io.vertx.core.AbstractVerticle;
@@ -8,7 +8,6 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import models.UserDiagram;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DiagramRestMicroservice extends AbstractVerticle {
@@ -21,18 +20,12 @@ public class DiagramRestMicroservice extends AbstractVerticle {
 
     @Override
     public void start() {
-
-        // Create a router object.
         Router router = Router.router(vertx);
-
         router.route("/api/diagrams*").handler(BodyHandler.create());
         router.post("/api/diagrams").handler(this::insert);
         router.delete("/api/diagrams/delete/:id").handler(this::delete);
         router.get("/api/diagrams/get/:id").handler(this::get);
         router.get("/api/diagrams/get/user/:username").handler(this::getByUser);
-
-        // Lol
-
         vertx.createHttpServer()
                 .requestHandler(router::accept)
                 .listen(7070);

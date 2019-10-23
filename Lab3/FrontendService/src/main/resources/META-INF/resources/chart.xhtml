@@ -10,7 +10,33 @@
     <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://registry.npmjs.org/node-fetch"></script>
+
     <script type="text/javascript">
+
+        var host = "localhost:7070";
+        var get_user_chart_end_point = "localhost:7070" + "/api/diagrams/get/" + "5db07cfd5e189c7a093bf920";
+
+       // var url = "localhost:7070/api/diagrams/get/5db07cfd5e189c7a093bf920"
+        var diagram_data = {
+
+        };
+        var result_data;
+        $.ajax({
+            url: "http://localhost:7070/api/diagrams/get/5db07cfd5e189c7a093bf920",
+            type: "GET",
+            data: diagram_data,
+            success: function(data) {
+                result_data = data;
+                alert("Success!!");
+            },
+            error: function () {
+                alert("Query unsuccessful!");
+            }
+        });
+
+        /*
         window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer", {
                 data: [
@@ -26,9 +52,10 @@
                     }
                 ]
             });
-
             chart.render();
         }
+         */
+
     </script>
 </head>
 <body>

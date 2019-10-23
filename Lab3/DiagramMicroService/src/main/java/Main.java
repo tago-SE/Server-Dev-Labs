@@ -1,6 +1,6 @@
 import db.UserDiagramDao;
 import io.vertx.core.Vertx;
-import io.vertx.sample.DiagramRestMicroservice;
+import vertx.DiagramRestMicroservice;
 
 public class Main {
 
