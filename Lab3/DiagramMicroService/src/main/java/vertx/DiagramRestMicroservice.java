@@ -24,7 +24,7 @@ public class DiagramRestMicroservice extends AbstractVerticle {
 
         Router router = Router.router(vertx);
 
-        router.route().handler(CorsHandler.create(".*.")
+        router.route().handler(CorsHandler.create("*")
                 .allowedMethod(io.vertx.core.http.HttpMethod.GET)
                 .allowedMethod(io.vertx.core.http.HttpMethod.POST)
                 .allowedMethod(io.vertx.core.http.HttpMethod.OPTIONS)
@@ -88,12 +88,12 @@ private void get(RoutingContext rc) {
         } else {
             rc.response()
                     .putHeader("content-type", "application/json; charset=utf-8")
-                    // Are these necessary?
+                    /* Are these necessary?
                     .putHeader("Access-Control-Allow-Origin", "*")
                     .putHeader("Access-Control-Allow-Methods", "POST, GET")
                     .putHeader("Custom-Header", "Own-Data")
                     .putHeader("Access-Control-Expose-Headers", "Custom-Header")
-                    //
+                    */
                     .end(Json.encodePrettily(diagram));
         }
     }

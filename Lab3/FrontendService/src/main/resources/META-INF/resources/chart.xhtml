@@ -21,10 +21,10 @@
        // var url = "localhost:7070/api/diagrams/get/5db07cfd5e189c7a093bf920"
         var result_data;
         $.ajax({
-            url: "localhost:7070/api/diagrams/get/5db07cfd5e189c7a093bf920",
+            url: "http://localhost:7070/api/diagrams/get/5db07cfd5e189c7a093bf920",
             type: "GET",
-            //contentType: "application/json",
-            //  dataType: 'json',
+            contentType: "application/json",
+            dataType: 'json',
             success: function(res) {
                 result_data = res;
                 alert("Success!!");
