@@ -19,20 +19,18 @@
         var get_user_chart_end_point = "localhost:7070" + "/api/diagrams/get/" + "5db07cfd5e189c7a093bf920";
 
        // var url = "localhost:7070/api/diagrams/get/5db07cfd5e189c7a093bf920"
-        var diagram_data = {
-
-        };
         var result_data;
         $.ajax({
-            url: "http://localhost:7070/api/diagrams/get/5db07cfd5e189c7a093bf920",
+            url: "localhost:7070/api/diagrams/get/5db07cfd5e189c7a093bf920",
             type: "GET",
-            data: diagram_data,
-            success: function(data) {
-                result_data = data;
+            //contentType: "application/json",
+            //  dataType: 'json',
+            success: function(res) {
+                result_data = res;
                 alert("Success!!");
             },
-            error: function () {
-                alert("Query unsuccessful!");
+            error: function(xhr, textStatus, errorThrown) {
+                alert("Query failed");
             }
         });
 
