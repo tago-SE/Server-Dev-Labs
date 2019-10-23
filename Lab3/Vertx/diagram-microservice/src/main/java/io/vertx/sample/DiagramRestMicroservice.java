@@ -31,6 +31,7 @@ public class DiagramRestMicroservice extends AbstractVerticle {
         router.get("/api/diagrams/get/:id").handler(this::get);
         router.get("/api/diagrams/get/user/:username").handler(this::getByUser);
 
+        // Lol
 
         vertx.createHttpServer()
                 .requestHandler(router::accept)
