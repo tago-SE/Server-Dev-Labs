@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <!-- https://canvasjs.com/docs/charts/chart-types/html5-bar-chart/ -->
+
+    <title>Chart</title>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://registry.npmjs.org/node-fetch"></script>
+
+    <script type="text/javascript">
+        //var username = '#{userBean.username}';
+        var username = "Tiago";
+    </script>
+
+
+    <script type="text/javascript">
+        var options = [];
+        var data = {
+            id: "5db1880e033e1a475a8aa478",
+            title: "Hello World",
+            timestamp: "today"
+        }
+        options.push(data);
+    </script>
+
+</head>
+<body>
+
+    <!-- Select diagram from history -->
+    <label for="user-diagram-select">View my diagrams</label>
+    <select name="Diagrams" id="user-diagram-select"></select>
+
+    <!-- The rendered diagram -->
+    <div id="chartContainer" style="height: 500px; width: 50%;"></div>
+
+    <!-- change diagram type selector -->
+    <label for="diagram-type-select">Diagram Type</label>
+    <select name="Types" id="diagram-type-select"></select>
+
+    <script type="text/javascript">
+
+        var user_diagram = null;
+
+        // Selection list - which user diagram is to be rendered
+        var selector = document.querySelector('#user-diagram-select');
+        selector.options.add(new Option("none", "none"));
+        selector.onchange = function() {
+            if (this.value !== "none") {
+                displayChart(this.value);
+            }
+            else {
+                drawEmptyChart();
+            }
+        };
+
+        // Query for all diagrams by username
+        $.ajax({
+            url: "http://localhost:7070/api/diagrams/get/user/" + username,
+            type: "GET",
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (res) {
+                // add result to selector
+                for (var i = 0; i < res.length; i++) {
+                    var option = new Option(res[i].id, res[i].id);
+                    selector.options.add(option);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                // We ignore every error regardless if it hard or soft (404)
+            }
+        });
+
+        function displayChart(id) {
+            $.ajax({
+                url: "http://localhost:7070/api/diagrams/get/" + id,
+                type: "GET",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (res) {
+                    user_diagram = res;
+                    drawChart(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("Query failed");
+                }
+            });
+        }
+
+        function drawEmptyChart() {
+            var selector = document.querySelector('#diagram-type-select');
+            for (var i = selector.options.length - 1; i >= 0; i--) {         // clear prev options
+                selector.remove(i);
+            }
+            var chart = new CanvasJS.Chart("chartContainer", {});
+            chart.render();
+        }
+
+        function drawChart(data) {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                data: [
+                    {
+                        type: data.type,
+                        dataPoints: data.dataPoints
+                    }
+                ]
+            });
+            chart.render();
+            setupGraphTypeSelector(data);
+        }
+
+        function setupGraphTypeSelector(data) {
+            var optionIds = ["pie", "splineArea", "bar"];
+            // We remove the incoming one to avoid duplication and to make sure its on top of the list
+            for (var i = 0; i < optionIds.length; i++) {
+                if (optionIds[i] === data.type) {
+                    optionIds.splice(i, 1);
+                }
+            }
+            var selector = document.querySelector('#diagram-type-select');
+            for (var i = selector.options.length - 1; i >= 0; i--) {         // clear prev options
+                selector.remove(i);
+            }
+            selector.options.add(new Option(data.type, data.type));
+            // add new options
+            for (var i = 0; i < optionIds.length; i++) {
+                selector.options.add(new Option(optionIds[i], optionIds[i]));
+            }
+
+            selector.onchange = function() {     // Change diagram type
+                user_diagram.type = this.value;
+                drawChart(user_diagram);
+            }
+        }
+    </script>
+
+</body>
+</html>

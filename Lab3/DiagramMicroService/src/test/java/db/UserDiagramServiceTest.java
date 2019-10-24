@@ -18,8 +18,8 @@ public class UserDiagramServiceTest {
     private UserDiagram createOne(String username) {
         UserDiagram ud = new UserDiagram();
         ud.setUsername(username);
-        ud.setName("Pie");
-        ud.setType("Pie");
+        ud.setName("pie");
+        ud.setType("pie");
         List<UserDiagramPoint> points = new ArrayList<>();
         points.add(new UserDiagramPoint(1, 3));
         points.add(new UserDiagramPoint(2, 5));
@@ -64,5 +64,7 @@ public class UserDiagramServiceTest {
         assertNotEquals(before, after);
         System.out.println("after: " + after);
     }
+
+
 
 }
