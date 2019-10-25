@@ -21,6 +21,10 @@ public class UserDiagram implements Serializable {
     // Content
     private  List<UserDiagramPoint> dataPoints;
 
+    public UserDiagram() {
+
+    }
+
     public String getId() {
         return id;
     }

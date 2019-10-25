@@ -7,7 +7,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
-    <!-- https://canvasjs.com/docs/charts/chart-types/html5-bar-chart/ -->
 
     <title>Chart</title>
     <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -15,23 +14,34 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://registry.npmjs.org/node-fetch"></script>
+    <!-- -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+    <script type="text/javascript" src='vertx-eventbus.js'></script>
 
     <script type="text/javascript">
-        //var username = '#{userBean.username}';
-        var username = "Tiago";
+    var user_diagram = null;
+    //var username = '#{userBean.username}';
+    var username = "Tiago";
+
+    function saveDiagram()
+    {
+        user_diagram.username = username;
+        $.ajax({
+            url: "http://localhost:7070/api/diagrams",
+            type: "POST",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(user_diagram),
+            success: function (res) {
+                alert("Save success");
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert("Save failed");
+            }
+        });
+    }
     </script>
-
-
-    <script type="text/javascript">
-        var options = [];
-        var data = {
-            id: "5db1880e033e1a475a8aa478",
-            title: "Hello World",
-            timestamp: "today"
-        }
-        options.push(data);
-    </script>
-
 </head>
 <body>
 
@@ -46,10 +56,10 @@
     <label for="diagram-type-select">Diagram Type</label>
     <select name="Types" id="diagram-type-select"></select>
 
+    <!-- save diagram -->
+    <button onclick="saveDiagram()">save</button>
+
     <script type="text/javascript">
-
-        var user_diagram = null;
-
         // Selection list - which user diagram is to be rendered
         var selector = document.querySelector('#user-diagram-select');
         selector.options.add(new Option("none", "none"));
@@ -59,9 +69,9 @@
             }
             else {
                 drawEmptyChart();
+                user_diagram = null;
             }
         };
-
         // Query for all diagrams by username
         $.ajax({
             url: "http://localhost:7070/api/diagrams/get/user/" + username,
@@ -135,13 +145,65 @@
             for (var i = 0; i < optionIds.length; i++) {
                 selector.options.add(new Option(optionIds[i], optionIds[i]));
             }
-
+            // Diagram type selection change
             selector.onchange = function() {     // Change diagram type
                 user_diagram.type = this.value;
                 drawChart(user_diagram);
             }
         }
     </script>
+
+
+    <!-- Event-bus -->
+
+    <script type="text/javascript">
+        var eventBus = new EventBus('http://localhost:5050/eventbus');
+        eventBus.onopen = function () {
+            eventBus.registerHandler('data.' + 5, function (error, message) {
+                alert("received: " + message.body.toString());
+                document.getElementById('current_price').innerHTML = JSON.parse(message.body).price;
+                document.getElementById('feed').value +=  ': ' + JSON.parse(message.body).data + '\n';
+            });
+        };
+    </script>
+
+    <script type="text/javascript">
+        function pushData() {
+            var newPrice = document.getElementById('my_bid_value').value;
+
+            var xmlhttp = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState === 4) {
+                    if (xmlhttp.status !== 200) {
+                        document.getElementById('error_message').innerHTML = 'Sorry, something went wrong.';
+                    }
+                }
+            };
+            xmlhttp.open("PATCH", "http://localhost:5050/api/data/" + 5);
+            xmlhttp.setRequestHeader("Content-Type", "application/json");
+            xmlhttp.send(JSON.stringify({data: newPrice}));
+        };
+    </script>
+
+    <!-- OLD Form -->
+
+    <h3>Auction 1</h3>
+    <div id="error_message"></div>
+    <form>
+        Last received:
+        <br/>
+        <span id="current_price"></span>
+        <div>
+            <!--<label for="my_bid_value">Your offer:</label>-->
+            <input id="my_bid_value" type="text">
+            <input type="button" onclick="pushData();" value="Push">
+        </div>
+        <div>
+            Log:
+            <br/>
+            <textarea id="feed" rows="4" cols="50" readonly></textarea>
+        </div>
+    </form>
 
 </body>
 </html>

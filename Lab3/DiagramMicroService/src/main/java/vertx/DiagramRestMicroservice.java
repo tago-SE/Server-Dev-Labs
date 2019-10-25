@@ -11,6 +11,9 @@ import models.UserDiagram;
 
 import java.util.List;
 
+/**
+ * Simple REST-API for managing User Diagrams
+ */
 public class DiagramRestMicroservice extends AbstractVerticle {
 
     private UserDiagramDao userDiagramDao;
@@ -38,7 +41,7 @@ public class DiagramRestMicroservice extends AbstractVerticle {
         router.post("/api/diagrams").handler(this::insert);
         router.delete("/api/diagrams/delete/:id").handler(this::delete);
         router.get("/api/diagrams/get/:id").handler(this::get);
-            router.get("/api/diagrams/get/user/:username").handler(this::getByUser);
+        router.get("/api/diagrams/get/user/:username").handler(this::getByUser);
 
         vertx.createHttpServer()
                 .requestHandler(router::accept)
@@ -77,26 +80,20 @@ public class DiagramRestMicroservice extends AbstractVerticle {
         }
     }
 
-private void get(RoutingContext rc) {
-    final String id = rc.request().getParam("id");
-    if (id == null) {
-        rc.response().setStatusCode(400).end();
-    } else {
-        UserDiagram diagram = userDiagramDao.get(id);
-        if (diagram == null) {
-            rc.response().setStatusCode(404).end();
+    private void get(RoutingContext rc) {
+        final String id = rc.request().getParam("id");
+        if (id == null) {
+            rc.response().setStatusCode(400).end();
         } else {
-            rc.response()
-                    .putHeader("content-type", "application/json; charset=utf-8")
-                    /* Are these necessary?
-                    .putHeader("Access-Control-Allow-Origin", "*")
-                    .putHeader("Access-Control-Allow-Methods", "POST, GET")
-                    .putHeader("Custom-Header", "Own-Data")
-                    .putHeader("Access-Control-Expose-Headers", "Custom-Header")
-                    */
-                    .end(Json.encodePrettily(diagram));
+            UserDiagram diagram = userDiagramDao.get(id);
+            if (diagram == null) {
+                rc.response().setStatusCode(404).end();
+            } else {
+                rc.response()
+                        .putHeader("content-type", "application/json; charset=utf-8")
+                        .end(Json.encodePrettily(diagram));
+            }
         }
     }
-}
 
 }
