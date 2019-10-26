@@ -8,6 +8,11 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
     <title>Profile</title>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://registry.npmjs.org/node-fetch"></script>
 </head>
 <body>
     <!-- USER AUTH -->
@@ -62,6 +67,89 @@
         <h:messages globalOnly="true" style="color:red"/>
     </h:form>
 
+    <!-- Show user diagrams -->
+    <br/>
+    <br/>
+    <br/>
+    <label for="user-diagram-select">View diagrams</label>
+    <select name="Diagrams" id="user-diagram-select"></select>
+
+    <script type="text/javascript">
+
+        var user_diagram = {};
+        var username = localStorage.getItem("username");
+
+        // Selection list - which user diagram is to be rendered
+        var selector = document.querySelector('#user-diagram-select');
+        selector.options.add(new Option("none", "none"));
+        selector.onchange = function() {
+            if (this.value !== "none") {
+                displayChart(this.value);
+            }
+            else {
+                drawEmptyChart();
+                user_diagram = {};
+            }
+        };
+        // Query for all diagrams by username
+        $.ajax({
+            url: "http://localhost:7070/api/diagrams/get/user/" + username,
+            type: "GET",
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (res) {
+                console.log(res);
+                // add result to selector
+                for (var i = 0; i &lt; res.length; i++) {
+                    var option = new Option(res[i].id, res[i].id);
+                    selector.options.add(option);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                // We ignore every error regardless if it hard or soft (404)
+            }
+        });
+
+        function displayChart(id) {
+            $.ajax({
+                url: "http://localhost:7070/api/diagrams/get/" + id,
+                type: "GET",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (res) {
+                    console.log(res);
+                    user_diagram = res;
+                    drawChart(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("Query failed");
+                }
+            });
+        }
+
+        function drawEmptyChart() {
+            var chart = new CanvasJS.Chart("chartContainer", {});
+            chart.render();
+        }
+
+        function drawChart(data) {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                data: [
+                    {
+                        type: data.type,
+                        dataPoints: data.dataPoints
+                    }
+                ]
+            });
+            chart.render();
+        }
+    </script>
+
+
+    <!-- The rendered diagram -->
+    <div id="chartContainer" style="height: 500px; width: 50%;"></div>
+
+    <br/>
     <br/>
     <h:link value="Index " outcome="index"/>
     <h:link rendered="#{userBean.username == profileBean.user.username and userBean.loggedIn}" value="Settings" outcome="settings"/>
