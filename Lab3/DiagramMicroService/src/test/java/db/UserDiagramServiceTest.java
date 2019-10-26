@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotEquals;
 
 public class UserDiagramServiceTest {
-    private static final UserDiagramDao service = new UserDiagramDao("192.168.99.100:32768", "server_lab_3");
+    private static final UserDiagramDao service = new UserDiagramDao("192.168.99.100:32770", "server_lab_3");
 
     private UserDiagram createOne(String username) {
         UserDiagram ud = new UserDiagram();

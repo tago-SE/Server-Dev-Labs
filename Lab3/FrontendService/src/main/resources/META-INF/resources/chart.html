@@ -3,8 +3,8 @@
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
 
@@ -21,9 +21,8 @@
 
     <script type="text/javascript">
     var user_diagram = {};
-    //var username = '#{userBean.username}';
-    var username = "Tiago";
-
+    var username = localStorage.getItem("username");
+    alert("Logged in as: " + username);
     function saveDiagram()
     {
         user_diagram.username = username;
@@ -155,8 +154,6 @@
         }
     </script>
 
-
-
     <!-- Event-bus -->
     <script type="text/javascript">
         function jsonDataPointsToStr(json) {
@@ -211,7 +208,7 @@
 
     <!-- OLD Form -->
 
-    <h3>Auction 1</h3>
+    <h3>Push Data</h3>
     <div id="error_message"></div>
     <form>
         Last received:

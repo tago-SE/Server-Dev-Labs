@@ -10,7 +10,6 @@
 
 </h:head>
 <h:body>
-
     <h:form id="userLogin">
         <!-- Open login / registration -->
         <h:form rendered="#{!userBean.loggedIn}">
@@ -34,6 +33,18 @@
     <h:link value="Inbox" outcome="inbox" rendered="#{userBean.loggedIn}"/><br/>
     <h:outputLink value="#{pageControllerBean.canvasURL()}" rendered="#{userBean.loggedIn}">
         Canvas
-    </h:outputLink>
+    </h:outputLink><br/>
+    <h:outputLink value="#{pageControllerBean.moveToDiagram()}" rendered="#{userBean.loggedIn}">
+        Diagrams
+    </h:outputLink><br/>
+
+    <!--
+        This is a strange lab that requires strange work arounds... We save the username in the local storage so that
+        we can use it in the html page when/if necessary...
+    -->
+    <script type="text/javascript">
+        var username = '#{userBean.username}';
+        localStorage.setItem("username", username);
+    </script>
 </h:body>
 </html>

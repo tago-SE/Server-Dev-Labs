@@ -33,5 +33,9 @@ public class PageControllerBean implements Serializable {
         return "drawer.xhtml";
     }
 
+    public static String moveToDiagram() {
+        return "chart.html";
+    }
+
 
 }

@@ -5,7 +5,7 @@ import vertx.LiveDataMicroservice;
 
 public class Main {
 
-    private static final String DB_HOST_ADDRESS = "192.168.99.100:32768";
+    private static final String DB_HOST_ADDRESS = "192.168.99.100:32770";
     private static final String DB_NAME = "server_lab_3";
 
     public static void main(String[] args) {

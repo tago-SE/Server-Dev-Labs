@@ -24,9 +24,7 @@ public class DiagramRestMicroservice extends AbstractVerticle {
 
     @Override
     public void start() {
-
         Router router = Router.router(vertx);
-
         router.route().handler(CorsHandler.create("*")
                 .allowedMethod(io.vertx.core.http.HttpMethod.GET)
                 .allowedMethod(io.vertx.core.http.HttpMethod.POST)
