@@ -62,7 +62,7 @@ public class LiveDataMicroservice extends AbstractVerticle {
         });
     }
 
-    // Precondition is that the args are split numbers divided by ,
+    // Precondition: the args are split in numbers separated by ','
     // Example: args = { "5,3", "3,4" }
     private List<UserDiagramPoint> parseToNodes(String[] args) {
         List<UserDiagramPoint> resultList = new ArrayList<>();
@@ -79,16 +79,16 @@ public class LiveDataMicroservice extends AbstractVerticle {
         String id = context.request().getParam("id");
         String recv = context.getBodyAsJson().getString("data");
         _logger.info("Received: " + recv);
-
         UserDiagram diagram = new UserDiagram();
         diagram.setName("pie");
         diagram.setType("pie");
-        diagram.setDataPoints(parseToNodes(recv.split(" ")));
+        diagram.setTimestamp(new Date());
+        List<UserDiagramPoint> points = parseToNodes(recv.split(" "));
+        _logger.info("Points: " + points);
+        diagram.setDataPoints(points);
 
-        context.vertx().eventBus().publish(PUBLIC_DATA_HANDLER_NAME + "." + id, context.getBodyAsString());
-        context.response()
-                .setStatusCode(200)
-                .end();
+        context.vertx().eventBus().publish(PUBLIC_DATA_HANDLER_NAME + "." + id, Json.encodePrettily(diagram));
+
     }
 
     private Router dataUpdateApiRouter() {
@@ -103,7 +103,6 @@ public class LiveDataMicroservice extends AbstractVerticle {
     @Override
     public void start(Future<Void> fut) {
         Router router = Router.router(vertx);
-        // Configure CORS
         router.route().handler(CorsHandler.create("*")
                 .allowedMethod(io.vertx.core.http.HttpMethod.GET)
                 .allowedMethod(io.vertx.core.http.HttpMethod.POST)

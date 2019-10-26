@@ -20,7 +20,7 @@
     <script type="text/javascript" src='vertx-eventbus.js'></script>
 
     <script type="text/javascript">
-    var user_diagram = null;
+    var user_diagram = {};
     //var username = '#{userBean.username}';
     var username = "Tiago";
 
@@ -69,7 +69,7 @@
             }
             else {
                 drawEmptyChart();
-                user_diagram = null;
+                user_diagram = {};
             }
         };
         // Query for all diagrams by username
@@ -79,6 +79,7 @@
             contentType: "application/json",
             dataType: 'json',
             success: function (res) {
+                console.log(res);
                 // add result to selector
                 for (var i = 0; i < res.length; i++) {
                     var option = new Option(res[i].id, res[i].id);
@@ -97,6 +98,7 @@
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (res) {
+                    console.log(res);
                     user_diagram = res;
                     drawChart(res);
                 },
@@ -154,15 +156,37 @@
     </script>
 
 
-    <!-- Event-bus -->
 
+    <!-- Event-bus -->
     <script type="text/javascript">
+        function jsonDataPointsToStr(json) {
+            var result = "";
+            for (var i = 0; i < json.length; i++) {
+                result += "{" + json[i].x + "," + json[i].y + "}";
+            }
+            return result;
+        }
         var eventBus = new EventBus('http://localhost:5050/eventbus');
         eventBus.onopen = function () {
             eventBus.registerHandler('data.' + 5, function (error, message) {
-                alert("received: " + message.body.toString());
-                document.getElementById('current_price').innerHTML = JSON.parse(message.body).price;
-                document.getElementById('feed').value +=  ': ' + JSON.parse(message.body).data + '\n';
+                alert("Update received!");
+                console.log(message);
+
+                var json = JSON.parse(message.body);
+
+                // update shown diagram
+                user_diagram.dataPoints = json.dataPoints;
+                user_diagram.timestamp = json.timestamp;
+                if (user_diagram.type == null)
+                    user_diagram.type = json.type;
+                if (user_diagram.name == null)
+                    user_diagram.name = json.name;
+                drawChart(user_diagram);
+
+                // Update log
+                var str = jsonDataPointsToStr(json.dataPoints);
+                document.getElementById('current_price').innerHTML = str;
+                document.getElementById('feed').value +=  ': ' + str + '\n';
             });
         };
     </script>
