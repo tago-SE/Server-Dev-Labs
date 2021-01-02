@@ -80,9 +80,7 @@ public class LiveDataMicroservice extends AbstractVerticle {
         List<UserDiagramPoint> points = parseToNodes(recv.split(" "));
         _logger.info("Points: " + points);
         diagram.setDataPoints(points);
-
         context.vertx().eventBus().publish(PUBLIC_DATA_HANDLER_NAME + "." + id, Json.encodePrettily(diagram));
-
     }
 
     private Router dataUpdateApiRouter() {

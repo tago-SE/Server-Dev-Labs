@@ -17,4 +17,6 @@ public class Main {
         vertx.deployVerticle(new DiagramRestMicroservice(dao));
         vertx.deployVerticle(new LiveDataMicroservice());
     }
+
+
 }
